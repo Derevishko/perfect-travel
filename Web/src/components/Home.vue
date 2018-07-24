@@ -9,7 +9,7 @@
 					</div>
 					<div class="tours row col-sm-9">
 						<div class="tours-div">
-							<pt-tour v-for="tour in toursArray" :key="tour.tour_id" v-bind:tourName="tour.tour_name" :tourImg="tour.tour_img" :tourDesc="tour.tour_desc" :tourCost="tour.tour_cost"></pt-tour>
+							<pt-tour v-for="tour in toursArray" :tourId="tour.tour_id" v-bind:tourName="tour.tour_name" :tourImg="tour.tour_img" :tourDesc="tour.tour_desc" :tourCost="tour.tour_cost"></pt-tour>
 							<div class="addNewTour">
 								<h1 class="add"><i class="fa fa-plus"></i></h1>
 							</div>
@@ -41,14 +41,14 @@
 		}
 		,created(){
 			const vm = this;
-			const xhr = new XMLHttpRequest;
-				  xhr.open("GET","../../DATABASE/JSON/Tours.json",true)
-				  xhr.onload = function(){
+			const xhr1 = new XMLHttpRequest;
+				  xhr1.open("GET","../../DATABASE/JSON/Tours.json",true)
+				  xhr1.onload = function(){
 					  var tours = JSON.parse(this.responseText);
 				      vm.toursArray = tours["Tours"];
 				      console.log(vm.toursArray)
 				  }
-				  xhr.send(null)
+				  xhr1.send(null)
 		}
 	}
 </script>

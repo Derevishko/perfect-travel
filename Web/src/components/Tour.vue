@@ -12,20 +12,16 @@
 		</div>
 		<div class="row bot">
 			<p>{{ tourCost }}</p>
-			<button class="btn btn-outline-secondary">Далее</button>
+			<a :href="tour/tourId""><button class="btn btn-outline-secondary">Далее</button></a>
 		</div>		
 	</div>
 </template>
 
 <script>
 	export default {
-		props: ['tourName','tourImg','tourDesc','tourCost']
+		props: ['tourName','tourImg','tourDesc','tourCost','tourId']
 		,data(){
 			return {
-				// tourName: "Name"
-				// ,tourImg: "https://retarcorp.by/img/logo.png"
-				// ,tourDesc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, optio cumque expedita quam quos nobis?"
-				// ,tourCost: "150p"
 			}
 		}
 	}

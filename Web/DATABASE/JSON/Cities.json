@@ -5,7 +5,7 @@
 			,"city_name": "cityName0"
 			,"city_desc": "cityDescription0"
 			,"city_photos": ["link0_0","link0_1","link0_2"]
-			,"city_coords": [000,000]
+			,"city_coords": "000,000"
 			,"city_places": ["place0_0","place0_1","place0_2"]
 		}
 		,{
@@ -13,7 +13,7 @@
 			,"city_name": "cityName1"
 			,"city_desc": "cityDescription1"
 			,"city_photos": ["link1_0","link1_1","link1_2"]
-			,"city_coords": [001,001]
+			,"city_coords": "001,001"
 			,"city_places": ["place1_0","place1_1","place1_2"]
 		}
 		,{
@@ -21,7 +21,7 @@
 			,"city_name": "cityName2"
 			,"city_desc": "cityDescription2"
 			,"city_photos": ["link2_0","link2_1","link2_2"]
-			,"city_coords": [002,002]
+			,"city_coords": "002,002"
 			,"city_places": ["place2_0","place2_1","place2_2"]
 		}
 	]

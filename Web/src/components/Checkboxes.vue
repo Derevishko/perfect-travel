@@ -23,16 +23,14 @@
 				</label>
 			</li>
 			<li>
-				<select class="form-control form-control-sm">
-				  <option>Показать все</option>
-				</select>
-				<div class="allCities">
+				<input type="search" class="form-control form-control-sm" placeholder="Показать все" @click="toggleAllCities">
+				<div class="allCities" v-show="visible">
 					<div>
-					<div  v-show="visible" v-for="city in cities">
+					<div @click="toggleAllCities"  v-for="city in citiesArray">
 					  	<label class="cb-city custom-control custom-checkbox">
 							<input type="checkbox" class="custom-control-input">
 							<span class="custom-control-indicator"></span>
-							<span class="custom-control-description"> {{city}} </span>
+							<span class="custom-control-description"> {{city.city_name}} </span>
 						</label>
 					</div>
 					</div>
@@ -46,22 +44,39 @@
 	export default {
 		data(){
 			return {
-				cities: ['City1','City2','City3','City4','City5','City6','City7','City8','City9','City10']
-				,visible: true
+				citiesArray: [] //['City1','City2','City3','City4','City5','City6','City7','City8','City9','City10']
+				,visible: false
 			}
 		}
 		,methods:{
-			
+			toggleAllCities(){
+				// document.getElementsByClassName('allCities')[0].classList.toggle('on');
+				return this.visible = !this.visible;
+			}
+		}
+		,created(){
+			const vm = this;
+			const xhr2 = new XMLHttpRequest;
+				  xhr2.open("GET","../../DATABASE/JSON/Cities.json",true)
+				  xhr2.onload = function(){
+					  var cities = JSON.parse(this.responseText);
+				      vm.citiesArray = cities["Cities"];
+				      console.log(vm.citiesArray)
+				  }
+				  xhr2.send(null)
 		}
 	}
 </script>
 <style scoped>
+	.on {
+		display: block;
+	}
 	.allCities {
-	position: fixed;
-	top: 320px;
-	left: 20px;
-	width: 100%;
+	position: relative;
+	left: -10px;
+	width: 95em;
 	display: block;
+	margin: 0;
 	}
 	.allCities > div {
 	padding-left: 10px;
