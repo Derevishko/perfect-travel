@@ -1,0 +1,25 @@
+{
+	"Places": [
+		{
+			"place_id": 0
+			,"place_name": "placeName0"
+			,"place_desc": "placeDescription0"
+			,"place_photos": ["link0_0","link0_1","link0_2"]
+			,"place_coords": [000,000]
+		}
+		,{
+			"place_id": 1
+			,"place_name": "placeName1"
+			,"place_desc": "placeDescription1"
+			,"place_photos": ["link1_0","link1_1","link1_2"]
+			,"place_coords": [001,001]
+		}
+		,{
+			"place_id": 2
+			,"place_name": "placeName2"
+			,"place_desc": "placeDescription2"
+			,"place_photos": ["link2_0","link2_1","link2_2"]
+			,"place_coords": [002,002]
+		}
+	]
+}
