@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:background="@color/fon">
+
+        <LinearLayout
+            android:layout_margin="0.5dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/header"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:textSize="20dp"
+                android:hint="Header"
+                android:textAlignment="center" />
+
+            <CheckBox
+                android:id="@+id/cbBox"
+                android:background="@color/fon"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_add"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:text="Поехать"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="0.5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_margin="0.5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="2">
+
+                <TextView
+                    android:id="@+id/textInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="61dp"
+                    android:singleLine="false"
+                    android:minLines="1"
+                    android:maxLines="100"
+                    android:hint="Info" />
+
+                <Button
+                    android:id="@+id/btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Подробнее"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+</LinearLayout>
