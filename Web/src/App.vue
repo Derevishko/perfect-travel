@@ -23,6 +23,27 @@ export default {
 		,ptFooter: Footer
 		,ptHome: Home
 	}
+	,
+	data(){
+		var routes = {
+			"#Home": {
+				comp: "pt-home"
+			}
+			,"#Tour": {
+				comp: "pt-tour-opened"
+			}
+			,"#CreateCity": {
+				comp: "pt-create-city"
+			}
+			,"#CreateCity/CreatePlace": {
+				comp: "pt-create-place"
+			}
+			,"ClientReg": {
+				comp: "pt-client-reg"
+			}	
+		}
+		return routes;
+	}
 }
 </script>
 
