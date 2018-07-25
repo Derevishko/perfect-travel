@@ -15,10 +15,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import travel.avg.travel.R;
-import travel.avg.travel.Routs;
+import travel.avg.travel.RoutActivity;
 import travel.avg.travel.entities.Tour;
 
-public class MyAdapter1 extends BaseAdapter implements View.OnClickListener {
+public class MyAdapter1 extends BaseAdapter {
 
     Context ctx;
     LayoutInflater lInflater;
@@ -39,7 +39,7 @@ public class MyAdapter1 extends BaseAdapter implements View.OnClickListener {
 
     // элемент по позиции
     @Override
-    public Object getItem(int position) {
+    public Tour getItem(int position) {
         return objects.get(position);
     }
 
@@ -59,15 +59,19 @@ public class MyAdapter1 extends BaseAdapter implements View.OnClickListener {
             view = lInflater.inflate(R.layout.item, parent, false);
 
         Tour tour = getProduct(position);
-        // заполняем View в пункте списка данными из туров: заголовки, информация
-        // и картинка
+
         ((TextView) view.findViewById(R.id.header)).setText(tour.tour_name);
         ((TextView)view.findViewById(R.id.textInfo)).setText(tour.tourDescription);
 
-        Button btn = (Button)view.findViewById(R.id.btn);
-        btn.setOnClickListener(this);
-        CheckBox cbBuy =
-                view.findViewById(R.id.cbBox);
+        Button btn = view.findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ctx, RoutActivity.class);
+                ctx.startActivity(intent);
+            }
+        });
+        CheckBox cbBuy = view.findViewById(R.id.cbBox);
         // присваиваем чекбоксу обработчик
         cbBuy.setOnCheckedChangeListener(myCheckChangeList);
         // пишем позицию
@@ -80,7 +84,7 @@ public class MyAdapter1 extends BaseAdapter implements View.OnClickListener {
 
     // tour по позиции
     Tour getProduct(int position) {
-        return ((Tour) getItem(position));
+        return (getItem(position));
     }
 
     // содержимое корзины
@@ -102,16 +106,4 @@ public class MyAdapter1 extends BaseAdapter implements View.OnClickListener {
             getProduct((Integer) buttonView.getTag()).tour_status = isChecked;
         }
     };
-
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId()==R.id.btn){
-            Intent intent = new Intent(ctx, Routs.class);
-            ctx.startActivity(intent);
-        }
-
-    }
-
-
 }

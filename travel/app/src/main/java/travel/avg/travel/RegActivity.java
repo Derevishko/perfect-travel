@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -16,9 +17,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import travel.avg.travel.api.ServerApi;
-import travel.avg.travel.entities.Users;
+import travel.avg.travel.entities.User;
 
-public class RegActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegActivity extends AppCompatActivity{
 
     Button btn;
 
@@ -26,8 +27,15 @@ public class RegActivity extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration);
-        btn = (Button) findViewById(R.id.regUser);
-        btn.setOnClickListener(this);
+        btn = findViewById(R.id.regUser);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent log = new Intent(RegActivity.this, HomeActivity.class);
+                finish();
+                startActivity(log);
+            }
+        });
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://rawgit.com/startandroid/data/master/messages/")
@@ -36,13 +44,13 @@ public class RegActivity extends AppCompatActivity implements View.OnClickListen
 
         ServerApi serverApi = retrofit.create(ServerApi.class);
 
-        final Call<List<Users>> users = serverApi.users();
+        final Call<List<User>> users = serverApi.users();
 
-        users.enqueue(new Callback<List<Users>>() {
+        users.enqueue(new Callback<List<User>>() {
             @Override
-            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if(response.isSuccessful()){
-                    List<Users> list = response.body();
+                    List<User> list = response.body();
                     Log.d("response :" , String.valueOf(list.get(1).getId()));
                     //Log.d("response :", String.valueOf(response.body()));
                 }
@@ -51,19 +59,10 @@ public class RegActivity extends AppCompatActivity implements View.OnClickListen
             }
 
             @Override
-            public void onFailure(Call<List<Users>> call, Throwable t) {
-                Log.d("faild: ", t.toString());
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "faild: " + t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-
-    @Override
-    public void onClick(View view) {
-
-        Intent log = new Intent(this, Home.class);
-        finish();
-        startActivity(log);
     }
 
     @Override
@@ -78,4 +77,5 @@ public class RegActivity extends AppCompatActivity implements View.OnClickListen
         }
         return true;
     }
+
 }

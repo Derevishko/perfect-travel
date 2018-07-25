@@ -10,7 +10,7 @@
         android:paddingTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Введите email"
+        android:text="@string/input_email"
         android:layout_centerHorizontal="true"/>
 
     <EditText
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv2"
         android:layout_below="@id/editLogin"
-        android:text="Введите пароль"
+        android:text="@string/input_pass"
         android:layout_centerHorizontal="true"/>
 
     <EditText
@@ -41,23 +41,23 @@
         android:id="@+id/editPas" />
 
     <Button
+        android:id="@+id/logUser"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editPas"
-        android:text="Войти"
-        android:layout_centerHorizontal="true"
-        android:onClick="OnClick"
-        android:id="@+id/logUser"/>
+        android:text="@string/log_in"
+        android:onClick="onClick"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/logUser"
-        android:text="Зарегестрироваться"
+        android:text="@string/sing_up"
         android:layout_centerHorizontal="true"
-        android:onClick="OnClick"
-        android:id="@+id/regUser"/>
+        android:id="@+id/regUser"
+        android:onClick="onClick"/>
 
 </RelativeLayout>

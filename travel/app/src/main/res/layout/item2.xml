@@ -4,7 +4,8 @@
     android:layout_height="140dp"
     android:layout_margin="10dp"
     android:orientation="vertical"
-    android:color="@color/fon">
+    android:color="@color/fon"
+    android:id="@+id/city">
 
     <TextView
         android:layout_width="match_parent"

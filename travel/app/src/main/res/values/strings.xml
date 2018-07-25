@@ -22,4 +22,12 @@
         completions."
     </string>
     <string name="title_activity_maps_time">Map</string>
+    <string name="input_email">Введите email</string>
+    <string name="input_pass">Введите пароль</string>
+    <string name="log_in">Войти</string>
+    <string name="sing_up">Зарегестрироваться</string>
+    <string name="hi">Добро пожаловать</string>
+    <string name="input_name">Введите Имя</string>
+    <string name="input_pas">Введите пароль</string>
+    <string name="magic_btn">time-time</string>
 </resources>
