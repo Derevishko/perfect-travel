@@ -5,7 +5,7 @@
 				<h1 class="slogan text-center">Welcome to Perfect Travel!</h1>
 				<div class="wrap container-fluid row">
 					<div class="item-selector border-r col-sm-3">
-						<pt-checkboxes></pt-checkboxes>	
+						<pt-checkboxes></pt-checkboxes>
 					</div>
 					<div class="tours row col-sm-9">
 						<div class="tours-div">
@@ -30,23 +30,25 @@
 			ptTour: Tour
 			,ptCheckboxes: Checkboxes
 		}
-		
+
 		,data(){
 			return {
 				toursArray: []
 			}
 		}
 		,methods:{
-
+		
 		}
 		,created(){
 			const vm = this;
 			const xhr1 = new XMLHttpRequest;
-				  xhr1.open("GET","../../DATABASE/JSON/Tours.json",true)
+				  // xhr1.open("GET","../../DATABASE/JSON/Tours.json",true)
+					xhr1.open('GET','/DATABASE/text',true);
 				  xhr1.onload = function(){
-					  var tours = JSON.parse(this.responseText);
-				      vm.toursArray = tours["Tours"];
-				      console.log(vm.toursArray)
+					  // var tours = JSON.parse(this.responseText);
+				      // vm.toursArray = tours["Tours"];
+				      // console.log(vm.toursArray)
+							console.error(this.responseText);
 				  }
 				  xhr1.send(null)
 		}
@@ -55,7 +57,7 @@
 
 <style scoped>
 	.slogan {
-		margin: 10px 0 15px 0;	
+		margin: 10px 0 15px 0;
 	}
 	.add {
 
@@ -72,7 +74,7 @@
 		width: 100%;
 		flex-wrap: wrap;
 	}
-	
+
 	.border-r {
 		border-right: 1px solid rgba(0,0,0,0.3)
 	}

@@ -6,6 +6,12 @@ app.use('/dist',express.static('dist'));
 app.use('/DATABASE',express.static('DATABASE'));
 app.use( '/src', express.static('src'));
 
+// app.get('/DATABASE/text',function(req,res){
+//     res.setHeader('200','ok',{'Content-type' : 'aplication/json; charset = utf8'});
+//     let response = {text: 'yghni',id:12};
+//     res.json(response);
+// })
+
 app.get('/api/',function(req,res) {
   res.setHeader('200','ok',{'Content-type' : 'text/html; charset = utf8'})
   res.sendFile( __dirname + '/index.html')
