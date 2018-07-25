@@ -1,13 +1,13 @@
 <template>
 	<div id="app">
  		<div class="container-fluid">
- 			<pt-header></pt-header>		
+ 			<pt-header></pt-header>
  		</div>
  		<div class="container-fluid height">
- 			<pt-home></pt-home>		
+ 			<pt-home></pt-home>
  		</div>
  		<div class="container-fluid">
- 			<pt-footer></pt-footer>		
+ 			<pt-footer></pt-footer>
  		</div>
 	</div>
 </template>
@@ -40,10 +40,10 @@ export default {
 			}
 			,"ClientReg": {
 				comp: "pt-client-reg"
-			}	
+			}
 		}
 		return routes;
-	}
+	}}
 }
 </script>
 
