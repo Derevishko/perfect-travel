@@ -1,71 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".RegActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/test"
+        android:textSize="20dp"
+        android:minLines="0"
+        android:maxLines="100"/>
 
     <TextView
         android:id="@+id/tv1"
         android:paddingTop="20dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Введите email"
-        android:layout_centerHorizontal="true"/>
+        android:textAlignment="center"
+        android:text="Введите email"/>
 
     <EditText
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv1"
-        android:layout_centerHorizontal="true"
         android:inputType="textEmailAddress"
+        android:textAlignment="center"
         android:id="@+id/editLogin" />
 
     <TextView
         android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Nam"
-        android:layout_below="@id/editLogin"
-        android:text="Введите Имя"
-        android:layout_centerHorizontal="true"/>
+        android:textAlignment="center"
+        android:text="Введите Имя"/>
 
     <EditText
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Nam"
-        android:layout_centerHorizontal="true"
         android:inputType="textPassword"
+        android:textAlignment="center"
         android:id="@+id/editName" />
 
     <TextView
         android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tv2"
-        android:layout_below="@id/editName"
-        android:text="Введите пароль"
-        android:layout_centerHorizontal="true"/>
+        android:textAlignment="center"
+        android:text="Введите пароль"/>
 
     <EditText
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv2"
-        android:layout_centerHorizontal="true"
         android:inputType="textPassword"
+        android:textAlignment="center"
         android:id="@+id/editPas" />
 
     <Button
         android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editPas"
         android:text="Зарегестрироваться"
-        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
         android:onClick="OnClick"
         android:id="@+id/regUser"/>
 
-</RelativeLayout>
+</LinearLayout>

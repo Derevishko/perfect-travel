@@ -1,18 +1,14 @@
 package travel.avg.travel;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import travel.avg.travel.Adapter.MyAdapter1;
 import travel.avg.travel.Adapter.MyAdapter2;
 import travel.avg.travel.entities.Cities;
-import travel.avg.travel.entities.Tour;
 
 public class Routs extends AppCompatActivity {
 
@@ -31,6 +27,10 @@ public class Routs extends AppCompatActivity {
         // настраиваем список
         ListView lvMain = findViewById(R.id.lvMain);
         lvMain.setAdapter(myAdapter2);
+    }
+
+    void inputData(){
+
     }
 
     // генерируем данные для адаптера
