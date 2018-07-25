@@ -1,10 +1,13 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
+const mongoClient = require("mongodb").MongoClient;
+const url = 'mongodb://localhost:27017/';
 
-app.use('/dist',express.static('dist'));
-app.use('/DATABASE',express.static('DATABASE'));
-app.use( '/src', express.static('src'));
+
+app.use('/api/dist',express.static('dist'));
+app.use('/api/DATABASE',express.static('DATABASE'));
+app.use( '/api/src', express.static('src'));
 
 // app.get('/DATABASE/text',function(req,res){
 //     res.setHeader('200','ok',{'Content-type' : 'aplication/json; charset = utf8'});
@@ -12,10 +15,21 @@ app.use( '/src', express.static('src'));
 //     res.json(response);
 // })
 
-app.get('/api/',function(req,res) {
-  res.setHeader('200','ok',{'Content-type' : 'text/html; charset = utf8'})
-  res.sendFile( __dirname + '/index.html')
-});
+// app.get('/api/',function(req,res) {
+//   res.setHeader('200','ok',{'Content-type' : 'text/html; charset = utf8'})
+//   res.sendFile( __dirname + '/index.html')
+// });
+app.get('/api/test',function(req,res){
+  mongoClient.connect(url, function(err, client){
+      if(err){
+          return console.log(err);
+      }
+      const db = client.db('TourAgancyDB');
+      const collection = db.collection('Cities');
+      res.send(collection);
+      client.close();
+  });
+})
 app.get( '/api/createtour', function(req, res) {
   //return json {nameCities:['name0',name1,...]}
   res.setHeader('200','ok',{'Content-type' : 'aplication/json; charset = utf8'})
@@ -67,4 +81,5 @@ app.put( '/api/adduser',function(req, res) {
  res.setHeader('200','ok',{'Content-type' : 'text/plain; charset = utf8'});
  req.head()
 });
-app.listen(3000)
+app.listen(process.env.PORT);
+// app.listen(3000);
