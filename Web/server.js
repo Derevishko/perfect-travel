@@ -97,10 +97,10 @@ app.get( '/api/redactcity', function(req, res) {
         data.push(city.name)
       }
       client.close();
-
+      res.json(data)
     })
   });
-  res.json(data)
+
 });
 
 app.get( '/api/redactcity/:namecity', function(req, res) {
@@ -112,9 +112,10 @@ app.get( '/api/redactcity/:namecity', function(req, res) {
     collection.findOne({name: req.params.namecity}).toArray(function(err,result) {
       data = JSON.parse(result);
       client.close();
+      res.json(data)
     })
   })
-  res.json(data)
+
 });
 
 app.put( '/api/redactcity/:namecity', function(req, res) {
