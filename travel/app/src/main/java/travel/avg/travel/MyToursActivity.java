@@ -35,7 +35,7 @@ public class MyToursActivity extends AppCompatActivity {
     // генерируем данные для адаптера
     void fillData() {
         for (int i = 1; i <= 20; i++) {
-            tours.add(new Tour("Tour: " + 1, "This Tour: " + 1, true));
+            tours.add(new Tour(i, "Tour "+i , "status", "yes", "Guid", 20, 1000, "22:40 - 21:00"));
         }
     }
 

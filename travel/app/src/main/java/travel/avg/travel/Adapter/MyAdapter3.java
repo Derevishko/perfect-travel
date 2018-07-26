@@ -65,7 +65,7 @@ public class MyAdapter3 extends BaseAdapter {
 
         City cities = getProduct(position);
 
-        ((TextView)view.findViewById(R.id.infoTime)).setText(cities.city_name);
+        ((TextView)view.findViewById(R.id.infoTime)).setText(cities.getCity_name());
 //        ((TextView) view.findViewById(R.id.vname)).setText(cities.city_name);
 //        ((TextView) view.findViewById(R.id.vdescription)).setText(cities.city_desc);
 

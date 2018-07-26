@@ -18,6 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import travel.avg.travel.api.ServerApi;
 import travel.avg.travel.entities.User;
+import travel.avg.travel.entities.UserRegister;
 
 public class RegActivity extends AppCompatActivity{
 
@@ -44,14 +45,19 @@ public class RegActivity extends AppCompatActivity{
 
         ServerApi serverApi = retrofit.create(ServerApi.class);
 
-        final Call<List<User>> users = serverApi.users();
+        int[] asd = new int[10];
+        for (int i:asd) {
+            asd[i] = i;
+        }
 
-        users.enqueue(new Callback<List<User>>() {
+        Call<List<UserRegister>> users = serverApi.singUp(new UserRegister("email", "name", "pass"));
+
+        users.enqueue(new Callback<List<UserRegister>>() {
             @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+            public void onResponse(Call<List<UserRegister>> call, Response<List<UserRegister>> response) {
                 if(response.isSuccessful()){
-                    List<User> list = response.body();
-                    Log.d("response :" , String.valueOf(list.get(1).getId()));
+                    List<UserRegister> list = response.body();
+                    //Log.d("response :" , String.valueOf(list.get(1).getId_user()));
                     //Log.d("response :", String.valueOf(response.body()));
                 }
                 else
@@ -59,7 +65,7 @@ public class RegActivity extends AppCompatActivity{
             }
 
             @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
+            public void onFailure(Call<List<UserRegister>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "faild: " + t.toString(), Toast.LENGTH_SHORT).show();
             }
         });

@@ -30,4 +30,5 @@
     <string name="input_name">Введите Имя</string>
     <string name="input_pas">Введите пароль</string>
     <string name="magic_btn">time-time</string>
+    <string name="info">Подробнее</string>
 </resources>

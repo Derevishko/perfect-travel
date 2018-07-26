@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import travel.avg.travel.Adapter.MyAdapter2;
 import travel.avg.travel.Adapter.MyAdapter3;
 import travel.avg.travel.entities.City;
+import travel.avg.travel.entities.Place;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -41,10 +42,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     void fillData() {
         for (int i = 1; i <= 20; i++) {
-            city.add(new City("Info City: " + 1, "This City: " + 1));
+            city.add(new City(i, "Minsk" + 1, "i = " + 1, "Phono", "22.04-22.06", "time - time", "ready"));
         }
     }
-
 
     /**
      * Manipulates the map once available.

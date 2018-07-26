@@ -19,20 +19,12 @@ public class RoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.routs);
 
-        // создаем адаптер
-        fillData();
-        myAdapter2 = new MyAdapter2(this, city);
+        int id_tour = Integer.parseInt(getIntent().getStringExtra("id_Tour"));
+        myAdapter2 = new MyAdapter2(this, city, id_tour);
 
         // настраиваем список
         ListView lvMain = findViewById(R.id.lvMain);
         lvMain.setAdapter(myAdapter2);
-    }
-
-    // генерируем данные для адаптера
-    void fillData() {
-        for (int i = 1; i <= 20; i++) {
-            city.add(new City("City: " + 1, "This City: " + 1));
-        }
     }
 }
 

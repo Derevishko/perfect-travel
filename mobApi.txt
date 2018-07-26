@@ -1,0 +1,49 @@
+1. Method GET:  .../users/id
+Должен получить:
+id_user(ид)
+email
+userName(имя)
+userTour(массивом ид туров, которые юзер забронировал)
+
+2. Method Get .../Tour
+Должен получить:
+id_Tour(ид тура)
+tour_name(имя тура)
+tour_status(статус тура)
+tourDescription(описание тура)
+tourGuid(имя гидa приклепленного к туру)
+tour_freeSeats(количество свободных места в туре)
+tour_cost(стоимость тура)
+(tour_departure - tour_arr) одним полем типа String "date:time - date:time"
+
+3. Method GET: .../Cities/id_tour
+Должен получить:
+id_city(ид города)
+city_name(имя city)
+city_desc(описание города)
+city_photos(фото города)
+city_coords(не обязательно)
+(arrival_date(дата прибытия) i departure_date(дата отправления)) одним String "date-date", если нет прибытия(1 город) - только отправление(String "date"), если отправления - только прибытие(String "date")
+(arrival_time(время прибытия) i departure_time(время отправления)) одним String "time-time", если нет прибытия(1 город) - только отправление(String "time"), если отправления  - только прибытие(String "time")
+city_status(статус города)
+
+
+4. Method GET: .../Place/id_place
+Должен получить:
+id_city(ид города)
+place_name(имя места)
+place_description(описание места)
+place_photo(фото места)
+place_coords(координаты места)
+(arrival_time(время прибытия) - departure_time(время отправления)) одним String "time-time"
+place_status(статус места)
+
+5. Method GET: .../Guid/id_tour
+Должен получить:
+id_guid(ид гида, который привязан к какому-то туру)
+id_tour(ид тура)
+guid_name(имя гида)
+guid_phone(телефон гида)
+guid_coord(координаты гида)
+
+последнее поле маловероятно что будет

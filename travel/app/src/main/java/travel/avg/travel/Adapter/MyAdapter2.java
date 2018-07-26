@@ -19,12 +19,14 @@ public class MyAdapter2 extends BaseAdapter {
     Context ctx;
     LayoutInflater lInflater;
     ArrayList<City> objects;
+    int id_tour;
 
-    public MyAdapter2(Context context, ArrayList<City> cities) {
+    public MyAdapter2(Context context, ArrayList<City> cities, int id_tour) {
         this.ctx = context;
         this.objects = cities;
         this.lInflater = (LayoutInflater) ctx
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.id_tour = id_tour;
     }
 
     // кол-во элементов
@@ -62,8 +64,8 @@ public class MyAdapter2 extends BaseAdapter {
 
         City cities = getProduct(position);
 
-        ((TextView) view.findViewById(R.id.vname)).setText(cities.city_name);
-        ((TextView) view.findViewById(R.id.vdescription)).setText(cities.city_desc);
+        ((TextView) view.findViewById(R.id.vname)).setText(cities.getCity_name());
+        ((TextView) view.findViewById(R.id.vdescription)).setText(cities.getCity_desc());
 //        ((TextView) view.findViewById(R.id.vdate)).setText(cities.get);
 //        ((TextView) view.findViewById(R.id.varrival)).setText();
 //        ((TextView)view.findViewById(R.id.vdeparture)).setText();
