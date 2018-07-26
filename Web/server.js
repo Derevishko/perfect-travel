@@ -3,7 +3,7 @@ const app = express();
 const fs = require('fs');
 const mongoClient = require("mongodb").MongoClient;
 const url = 'mongodb://localhost:27017/';
-const db = client.db('TourAgencyDB');
+
 
 app.use('/api/dist',express.static('dist'));
 app.use( '/api/src', express.static('src'));
@@ -17,6 +17,7 @@ app.get('/api/',function(req,res) {
     res.setHeader('200','ok',{'Content-type' : 'aplication.json; charset = utf8'})
     let data = [];
     mongoClient.connect(url,function(err,client) {
+      let db = client.db('TourAgencyDB');
       let collection = db.collection('Tours');
       collection.find().toArray(function(err,result) {
         data = JSON.parse(result);
@@ -30,6 +31,7 @@ app.get('/api/',function(req,res) {
 app.get( '/api/createtour', function(req, res) {
   let data = [];
   mongoClient.connect(url, function(err, client){
+    let db = client.db('TourAgencyDB');
     let collection = db.collection('Cities');
     collection.find().toArray(function(err, result) {
       if (err) {
@@ -48,6 +50,7 @@ app.get( '/api/createtour', function(req, res) {
 app.get( '/api/createtour/:name', function(req, res) {
   let data = {city: null, places: null};
   mongoClient.connect(url, function(err, client) {
+    let db = client.db('TourAgencyDB');
     let collection = db.collection('Cities');
     collection.findOne({name: req.params.name})
     .toArray(function(err, result) {
@@ -60,7 +63,7 @@ app.get( '/api/createtour/:name', function(req, res) {
       }
     });
     collection = db.collection('Places');
-    colection.find({city_id: data.id})
+    collection.find({city_id: data.id})
     .toArray(function(err, result) {
       if (err) {
         res.setHeader('400','error',{'Content-type' : 'text/plain; charset = utf8'});
@@ -86,6 +89,7 @@ app.get( '/api/redactcity', function(req, res) {
   let data = []
   res.setHeader('200','ok',{'Content-type' : 'aplication/json; charset = utf8'})
   mongoClient.connect(url,function(err,client) {
+    let db = client.db('TourAgencyDB');
     let collection = db.collection('Cities');
     collection.find().toArray(function(err,result) {
       result = JSON.parse(result);
@@ -103,6 +107,7 @@ app.get( '/api/redactcity/:namecity', function(req, res) {
   let data = [];
   res.setHeader('200','ok',{'Content-type' : 'aplication/json; charset = utf8'})
   mongoClient.connect(url,fnction(err, client) {
+    let db = client.db('TourAgencyDB');
     let collection = db.collection('Cities');
     collection.findOne({name: req.params.namecity}).toArray(function(err,result) {
       data = JSON.parse(result);
@@ -124,6 +129,7 @@ app.get( '/api/tour/:id', function(req, res) {
   let tourId = null;
   res.setHeader('200','ok',{'Content-type' : 'aplication/json; charset = utf8'});
   mongoClient.connect(url,function(err,client) {
+    let db = client.db('TourAgencyDB');
     let collection = db.collection('Tours');
     collection.find({_id:req.params.id}).toArray(function(err,result){
       data = JSON.parse(result);
@@ -132,7 +138,6 @@ app.get( '/api/tour/:id', function(req, res) {
       res.json(data)
     });
   })
-
 });
 
 app.get( '/api/selectusers', function(req, res) {
