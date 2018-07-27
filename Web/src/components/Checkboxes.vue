@@ -61,7 +61,6 @@
 				  xhr2.onload = function(){
 					  var cities = JSON.parse(this.responseText);
 				      vm.citiesArray = cities["Cities"];
-				      console.log(vm.citiesArray)
 				  }
 				  xhr2.send(null)
 		}

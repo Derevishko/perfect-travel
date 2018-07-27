@@ -1,18 +1,16 @@
 <template>
 	<header class="bc-green row">
 		<nav class="navbar navbar-toggleable-md navbar-light">
-			<a class="navbar-brand" href="/">PERFECT TRAVEL</a>
-			<!-- <ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="">home</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="">menu</a>
-				</li>
-			</ul> -->
+			<router-link class="navbar-brand" to="/home">PERFECT TRAVEL</router-link>
+			<router-link class="navbar-link" to="/clientReg">Регистрация клиента</router-link>
+			<router-link class="navbar-link" to="/addCity">Добавить город</router-link>
 		</nav>
 	</header>
 </template>
 <style scoped>
-	
+	.navbar-link {
+		margin-right: 10px; 
+		text-decoration: none;
+		color: black;
+	}
 </style>

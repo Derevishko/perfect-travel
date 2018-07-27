@@ -4,7 +4,7 @@
  			<pt-header></pt-header>
  		</div>
  		<div class="container-fluid height">
- 			<pt-home></pt-home>
+ 			<router-view></router-view> 
  		</div>
  		<div class="container-fluid">
  			<pt-footer></pt-footer>
@@ -23,31 +23,17 @@ export default {
 		,ptFooter: Footer
 		,ptHome: Home
 	}
-	,
-	data(){
-		var routes = {
-			"#Home": {
-				comp: "pt-home"
-			}
-			,"#Tour": {
-				comp: "pt-tour-opened"
-			}
-			,"#CreateCity": {
-				comp: "pt-create-city"
-			}
-			,"#CreateCity/CreatePlace": {
-				comp: "pt-create-place"
-			}
-			,"ClientReg": {
-				comp: "pt-client-reg"
-			}
-		}
-		return routes;
-	}}
+	,data(){
+		return {}
+	}
 }
+
 </script>
 
 <style>
+	.height{
+		min-height: calc(100vh - 110px)
+	}
 	.bc-green {
 		background-color: #41B883;
 	}

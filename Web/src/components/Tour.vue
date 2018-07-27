@@ -12,7 +12,7 @@
 		</div>
 		<div class="row bot">
 			<p>{{ tourCost }}</p>
-			<a :href="tour/tourId""><button class="btn btn-outline-secondary">Далее</button></a>
+			<a><button class="btn btn-outline-secondary">Далее</button></a>
 		</div>		
 	</div>
 </template>
@@ -29,10 +29,11 @@
 
 <style scoped>
 	.tour {
-		display: inline-block;
+		/*display: inline-block;*/
 		padding: 10px 30px;
 		margin: 5px;
-		width: 310px;
+		width: 100%;
+		height: 310px;
 		border: 1px solid #ccc;
 	}
 	.tour-name {

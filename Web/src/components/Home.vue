@@ -7,12 +7,15 @@
 					<div class="item-selector border-r col-sm-3">
 						<pt-checkboxes></pt-checkboxes>
 					</div>
-					<div class="tours row col-sm-9">
-						<div class="tours-div">
+					<div class="tours col-sm-9">
+						<div class="tours-div ">
+							<router-link to="/createTour">
+								<div class="addNewTour">
+									<h1 class="add"><i class="fa fa-plus"></i></h1>
+								</div>
+							</router-link>
 							<pt-tour v-for="tour in toursArray" :tourId="tour.tour_id" v-bind:tourName="tour.tour_name" :tourImg="tour.tour_img" :tourDesc="tour.tour_desc" :tourCost="tour.tour_cost"></pt-tour>
-							<div class="addNewTour">
-								<h1 class="add"><i class="fa fa-plus"></i></h1>
-							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -42,13 +45,11 @@
 		,created(){
 			const vm = this;
 			const xhr1 = new XMLHttpRequest;
-				  // xhr1.open("GET","../../DATABASE/JSON/Tours.json",true)
-					xhr1.open('GET','/DATABASE/text',true);
+				  xhr1.open("GET","../../DATABASE/JSON/Tours.json",true)
 				  xhr1.onload = function(){
-					  // var tours = JSON.parse(this.responseText);
-				      // vm.toursArray = tours["Tours"];
+					  var tours = JSON.parse(this.responseText);
+				      vm.toursArray = tours["Tours"];
 				      // console.log(vm.toursArray)
-							console.error(this.responseText);
 				  }
 				  xhr1.send(null)
 		}
@@ -60,18 +61,24 @@
 		margin: 10px 0 15px 0;
 	}
 	.add {
-
+		margin-bottom: 2px;
 	}
 	.wrap {
 		padding: 0;
 		border-top: 1px solid rgba(0,0,0,0.3);
-		justify-content: flex-start;
 	}
 	.tours {
-		height: 100%;
+		/*display: flex;*/
+		/*align-content: center;*/
+		/*justify-content: center;*/
+		min-height: 90vh;
 	}
 	.tours-div {
-		width: 100%;
+		justify-content: center;
+		display: flex;
+		text-align: center;
+		align-content: flex-start;
+
 		flex-wrap: wrap;
 	}
 
@@ -79,14 +86,18 @@
 		border-right: 1px solid rgba(0,0,0,0.3)
 	}
 	.item-selector {
-		min-height: 100vh;
+		min-height: 90vh;
 	}
 	.addNewTour {
-		display: inline-block;
-		padding: 10px 30px;
-		margin: 5px;
-		width: 310px;
-		height: 310px;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		padding: 40px 0;
+		height: 100px;
+		width: 100px;
 		border: 1px solid #ccc;
+		border-radius: 50px;
+		margin: 20px 0;
 	}
+
 </style>
