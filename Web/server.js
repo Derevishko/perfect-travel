@@ -4,18 +4,14 @@ const fs = require('fs');
 const mongoClient = require("mongodb").MongoClient;
 const objectId = require("mongodb").ObjectID;
 const url = 'mongodb://23.97.131.8:27017';
-let flag = true;
 
 app.use('/api/dist',express.static('dist'));
 app.use( '/api/src', express.static('src'));
 
 // открытие страницы
 app.get('/api/',function(req,res) {
-  if ( flag ) {
-    flag = false;
-    res.setHeader('200','ok',{'Content-type' : 'text/html; charset = utf8'});
-    res.sendFile( __dirname + '/index.html')
-  }
+  res.setHeader('200','ok',{'Content-type' : 'text/html; charset = utf8'});
+  res.sendFile( __dirname + '/index.html')
 });
 
 app.get('/api/test', function(req,res) {
