@@ -10,7 +10,7 @@ app.use('/api/dist',express.static('dist'));
 app.use( '/api/src', express.static('src'));
 
 // открытие страницы
-app.get('/api*',function(req,res) {
+app.get('/api/',function(req,res) {
   if ( flag ) {
     flag = false;
     res.setHeader('200','ok',{'Content-type' : 'text/html; charset = utf8'});
