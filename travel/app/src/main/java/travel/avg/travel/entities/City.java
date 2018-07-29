@@ -1,70 +1,53 @@
 package travel.avg.travel.entities;
 
 public class City {
-    private String id_city;
-    private String city_name;
-    private String city_desc;
-    private String city_photos;
-    private int city_coords;
-    private String date;
-    private String time;
-    private String city_status;
+    private String id;
+    private String tId;
+    private String cId;
+    private String status;
+    private String name;
+    private String description;
+    private String[] photos;
 
     public City() {
     }
 
-    //all exept coords
-    public City(String id_city, String city_name, String city_desc, String city_photos, String date, String time, String city_status) {
-        this.id_city = id_city;
-        this.city_name = city_name;
-        this.city_desc = city_desc;
-        this.city_photos = city_photos;
-        this.date = date;
-        this.time = time;
-        this.city_status = city_status;
+    public City(String id, String tId, String cId, String status, String name, String description, String[] photos) {
+        this.id = id;
+        this.tId = tId;
+        this.cId = cId;
+        this.status = status;
+        this.name = name;
+        this.description = description;
+        this.photos = photos;
     }
 
-    //all fields
-    public City(String id_city, String city_name, String city_desc, String city_photos, int city_coords, String date, String time, String city_status) {
-        this.id_city = id_city;
-        this.city_name = city_name;
-        this.city_desc = city_desc;
-        this.city_photos = city_photos;
-        this.city_coords = city_coords;
-        this.date = date;
-        this.time = time;
-        this.city_status = city_status;
+    public String getId() {
+        return id;
     }
 
-    public String getId_city() {
-        return id_city;
+    public String gettId() {
+        return tId;
     }
 
-    public String getCity_name() {
-        return city_name;
+    public String getcId() {
+        return cId;
     }
 
-    public String getCity_desc() {
-        return city_desc;
+    public String getStatus() {
+        return status;
     }
 
-    public String getCity_photos() {
-        return city_photos;
+    public String getName() {
+        return name;
     }
 
-    public int getCity_coords() {
-        return city_coords;
+    public String getDescription() {
+        return description;
     }
 
-    public String getDate() {
-        return date;
+    public String[] getPhotos() {
+        return photos;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public String getCity_status() {
-        return city_status;
-    }
 }

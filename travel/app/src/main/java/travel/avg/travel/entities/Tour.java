@@ -2,58 +2,64 @@ package travel.avg.travel.entities;
 
 public class Tour {
 
-    private String id_Tour;
-    private String tour_name;
-    private String tour_status;
-    private String tourDescription;
-    private String tourGuid;
-    private int tour_freeSeats;
-    private int tour_cost;
-    private String time;
+    private String id;
+    private String name;
+    private String description;
+    private String status;
+    private String photo;
+    private int free;
+    private int price;
+    private String date;
+    private String guide;
 
     public Tour() {
     }
 
-    public Tour(String id_Tour, String tour_name, String tour_status, String tourDescription, String tourGuid, int tour_freeSeats, int tour_cost, String time) {
-        this.id_Tour = id_Tour;
-        this.tour_name = tour_name;
-        this.tour_status = tour_status;
-        this.tourDescription = tourDescription;
-        this.tourGuid = tourGuid;
-        this.tour_freeSeats = tour_freeSeats;
-        this.tour_cost = tour_cost;
-        this.time = time;
+    public Tour(String id, String name, String description, String status, String photo, int free, int price, String date, String guide) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.photo = photo;
+        this.free = free;
+        this.price = price;
+        this.date = date;
+        this.guide = guide;
     }
 
-    public String getId_Tour() {
-        return id_Tour;
+    public String getId() {
+        return id;
     }
 
-    public String getTour_name() {
-        return tour_name;
+    public String getName() {
+        return name;
     }
 
-    public String getTour_status() {
-        return tour_status;
+    public String getDescription() {
+        return description;
     }
 
-    public String getTourDescription() {
-        return tourDescription;
+    public String getStatus() {
+        return status;
     }
 
-    public String getTourGuid() {
-        return tourGuid;
+    public String getPhoto() {
+        return photo;
     }
 
-    public int getTour_freeSeats() {
-        return tour_freeSeats;
+    public int getFree() {
+        return free;
     }
 
-    public int getTour_cost() {
-        return tour_cost;
+    public int getPrice() {
+        return price;
     }
 
-    public String getTime() {
-        return time;
+    public String getDate() {
+        return date;
+    }
+
+    public String getGuide() {
+        return guide;
     }
 }

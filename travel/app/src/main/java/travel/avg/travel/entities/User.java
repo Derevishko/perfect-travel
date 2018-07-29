@@ -1,34 +1,34 @@
 package travel.avg.travel.entities;
 
 public class User {
-    private String id_user;
+    private String id;
+    private String name;
     String email;
-    private String userName;
-    private int[] userTours;
-
-    public User(String id_user, String email, String userName, int[] userTours) {
-        this.id_user = id_user;
-        this.email = email;
-        this.userName = userName;
-        this.userTours = userTours;
-    }
+    private String[] Tours;
 
     public User() {
     }
 
-    public String getId_user() {
-        return id_user;
+    public User(String id, String name, String email, String[] tours) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        Tours = tours;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public int[] getUserTours() {
-        return userTours;
+    public String[] getTours() {
+        return Tours;
     }
 }

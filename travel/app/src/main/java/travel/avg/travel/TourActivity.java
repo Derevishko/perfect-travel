@@ -2,51 +2,59 @@ package travel.avg.travel;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import travel.avg.travel.Adapter.MyAdapter1;
+import travel.avg.travel.api.Helper;
+import travel.avg.travel.api.ServerApi;
 import travel.avg.travel.entities.Tour;
 
 public class TourActivity extends AppCompatActivity {
 
-    ArrayList<Tour> tours = new ArrayList<>();
-    MyAdapter1 myAdapter1;
+    List<Tour> values = new ArrayList<>();
+    Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tours);
 
-        // создаем адаптер
-        fillData();
-        myAdapter1 = new MyAdapter1(this, tours);
+        retrofit= new Retrofit.Builder()
+                .baseUrl(Helper.HOST)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-            // настраиваем список
-            ListView lvMain = findViewById(R.id.lvMain);
-            lvMain.setAdapter(myAdapter1);
+        ServerApi serverApi = retrofit.create(ServerApi.class);
+        Call<List<Tour>> call = serverApi.getTour();
+        call.enqueue(new Callback<List<Tour>>() {
+            @Override
+            public void onResponse(Call<List<Tour>> call, Response<List<Tour>> response) {
+                if(response.isSuccessful()){
+                    values = response.body();
+                    ArrayList<Tour> arrayList = new ArrayList();
+                    arrayList.addAll(values);
+                    MyAdapter1 myAdapter1 = new MyAdapter1(TourActivity.this, arrayList);
+                    ListView lvMain = findViewById(R.id.lvMain);
+                    lvMain.setAdapter(myAdapter1);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "faild code : " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<List<Tour>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "faild : " + t.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
-    // генерируем данные для адаптера
-    void fillData() {
-        for (int i = 1; i <= 20; i++) {
-            tours.add(new Tour(i, "Tour "+i , "status", "yes", "Guid", 20, 1000, "22:40 - 21:00"));
-        }
-    }
-
-//    // выводим информацию о турах
-//    public void showResult(View v) {
-//        String result = "Товары в корзине:";
-//        for (Tour p : myAdapter1.getBox()) {
-//            if (p.tour_status)
-//                result += "\n" + p.tour_name;
-//        }
-//        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-//    }
-
 }

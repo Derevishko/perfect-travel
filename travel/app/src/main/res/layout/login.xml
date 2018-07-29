@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv1"
         android:layout_centerHorizontal="true"
-        android:inputType="textEmailAddress"
         android:id="@+id/editLogin" />
 
     <TextView
@@ -37,7 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv2"
         android:layout_centerHorizontal="true"
-        android:inputType="textPassword"
         android:id="@+id/editPas" />
 
     <Button

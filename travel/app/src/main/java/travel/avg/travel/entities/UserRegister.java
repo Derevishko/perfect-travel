@@ -3,18 +3,18 @@ package travel.avg.travel.entities;
 import com.google.gson.annotations.SerializedName;
 
 public class UserRegister {
-    @SerializedName("email")
-    private String email_register;
-
-    @SerializedName("name")
+    @SerializedName("Name")
     private String name;
 
-    @SerializedName("pass")
-    private String password_register;
+    @SerializedName("Email")
+    private String email;
 
-    public UserRegister(String email_register, String name, String password_register) {
-        this.email_register = email_register;
+    @SerializedName("Password")
+    private String password;
+
+    public UserRegister(String name, String email, String password) {
         this.name = name;
-        this.password_register = password_register;
+        this.email = email;
+        this.password = password;
     }
 }

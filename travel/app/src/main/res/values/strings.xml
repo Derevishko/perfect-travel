@@ -31,4 +31,5 @@
     <string name="input_pas">Введите пароль</string>
     <string name="magic_btn">time-time</string>
     <string name="info">Подробнее</string>
+    <string name="route">Забронировать</string>
 </resources>

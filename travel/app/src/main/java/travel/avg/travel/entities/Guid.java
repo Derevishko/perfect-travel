@@ -1,35 +1,35 @@
 package travel.avg.travel.entities;
 
 public class Guid {
-    String id_guid;
-    String id_tour;
-    String guid_name;
-    String guid_phone;
+    String id;
+    String phone;
+    String tId;
+    String name;
     //String guid_coord;
 
     public Guid() {
     }
 
-    public Guid(String id_guid, String id_tour, String guid_name, String guid_phone) {
-        this.id_guid = id_guid;
-        this.id_tour = id_tour;
-        this.guid_name = guid_name;
-        this.guid_phone = guid_phone;
+    public Guid(String id, String phone, String tId, String name) {
+        this.id = id;
+        this.phone = phone;
+        this.tId = tId;
+        this.name = name;
     }
 
-    public String getId_guid() {
-        return id_guid;
+    public String getId() {
+        return id;
     }
 
-    public String getId_tour() {
-        return id_tour;
+    public String getPhone() {
+        return phone;
     }
 
-    public String getGuid_name() {
-        return guid_name;
+    public String gettId() {
+        return tId;
     }
 
-    public String getGuid_phone() {
-        return guid_phone;
+    public String getName() {
+        return name;
     }
 }

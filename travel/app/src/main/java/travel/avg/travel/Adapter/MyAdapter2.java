@@ -2,78 +2,65 @@ package travel.avg.travel.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import travel.avg.travel.MapsActivity;
 import travel.avg.travel.R;
+import travel.avg.travel.RoutActivity;
 import travel.avg.travel.entities.City;
+import travel.avg.travel.entities.Tour;
 
-public class MyAdapter2 extends BaseAdapter {
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<City> objects;
+public class MyAdapter2 extends ArrayAdapter<City> {
+    Context context;
+    private List<City> values;
+
     int id_tour;
 
-    public MyAdapter2(Context context, ArrayList<City> cities, int id_tour) {
-        this.ctx = context;
-        this.objects = cities;
-        this.lInflater = (LayoutInflater) ctx
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.id_tour = id_tour;
+    public MyAdapter2(Context context, List<City> values) {
+        super(context, R.layout.item2);
+
+        this.context = context;
+        this.values = values;
     }
 
-    // кол-во элементов
+    @NonNull
     @Override
-    public int getCount() {
-        return objects.size();
-    }
+    public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
 
-    // элемент по позиции
-    @Override
-    public City getItem(int position) {
-        return objects.get(position);
-    }
-
-    // id по позиции
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    // пункт списка
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        if(view == null)
-            view = lInflater.inflate(R.layout.item2, parent, false);
+        if(view == null){
+            LayoutInflater inflater =
+                    (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.item2, parent, false);
+        }
 
         LinearLayout linearLayout = view.findViewById(R.id.city);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ctx, MapsActivity.class);
-                ctx.startActivity(intent);
+                Intent intent = new Intent(context, MapsActivity.class);
+                context.startActivity(intent);
             }
         });
 
-        City cities = getProduct(position);
-
-        ((TextView) view.findViewById(R.id.vname)).setText(cities.getCity_name());
-        ((TextView) view.findViewById(R.id.vdescription)).setText(cities.getCity_desc());
-//        ((TextView) view.findViewById(R.id.vdate)).setText(cities.get);
-//        ((TextView) view.findViewById(R.id.varrival)).setText();
-//        ((TextView)view.findViewById(R.id.vdeparture)).setText();
+        City item = values.get(position);
+        ((TextView) view.findViewById(R.id.vname)).setText(item.getName());
+        ((TextView) view.findViewById(R.id.vdescription)).setText(item.getDescription());
 
         return view;
-    }
-
-    City getProduct(int position) {
-        return ( getItem(position));
     }
 }

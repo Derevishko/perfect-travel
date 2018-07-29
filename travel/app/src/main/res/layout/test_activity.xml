@@ -7,15 +7,14 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/idd"/>
+
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
-    </TextView>
+        android:id="@+id/listTest"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/id1"
-        android:text="askldnasjkld"/>
 </LinearLayout>

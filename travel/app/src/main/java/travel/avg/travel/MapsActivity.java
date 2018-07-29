@@ -1,8 +1,9 @@
 package travel.avg.travel;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -12,17 +13,23 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import travel.avg.travel.Adapter.MyAdapter2;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import travel.avg.travel.Adapter.MyAdapter3;
-import travel.avg.travel.entities.City;
+import travel.avg.travel.api.Helper;
+import travel.avg.travel.api.ServerApi;
 import travel.avg.travel.entities.Place;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    ArrayList<City> city = new ArrayList<>();
-    MyAdapter3 adapter3;
+    List<Place> values = new ArrayList<>();
+    Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +40,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        fillData();
-        adapter3 = new MyAdapter3(this, city);
 
-        ListView lvMain = findViewById(R.id.maps);
-        lvMain.setAdapter(adapter3);
-    }
+        retrofit= new Retrofit.Builder()
+                .baseUrl(Helper.HOST)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-    void fillData() {
-        for (int i = 1; i <= 20; i++) {
-            city.add(new City(i, "Minsk" + 1, "i = " + 1, "Phono", "22.04-22.06", "time - time", "ready"));
-        }
+        ServerApi serverApi = retrofit.create(ServerApi.class);
+        Call<List<Place>> call = serverApi.getPlaces(123);
+        call.enqueue(new Callback<List<Place>>() {
+            @Override
+            public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
+                if(response.isSuccessful()){
+                    values = response.body();
+                    MyAdapter3 myAdapter3 = new MyAdapter3(MapsActivity.this, values);
+                    ListView lvMain = findViewById(R.id.map);
+                    lvMain.setAdapter(myAdapter3);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "faild code : " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Place>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "faild : " + t.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
