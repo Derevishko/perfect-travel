@@ -11,12 +11,13 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+import travel.avg.travel.entities.Bronirovanie;
 import travel.avg.travel.entities.Token;
 import travel.avg.travel.entities.UserRegister;
 
 public class ApiService {
     Retrofit builder;
-    ServerApi client;
+    ServerApi serverApi;
     Context context;
 
     public ApiService(Context context) {
@@ -26,10 +27,12 @@ public class ApiService {
                 .create();
         builder = new Retrofit.Builder()
                 .baseUrl(Helper.HOST)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        client = builder.create(ServerApi.class);
+        serverApi = builder.create(ServerApi.class);
     }
 
+    public Call<String> Bron(String tour_id, String user_id){
+        return serverApi.bronirovanie(new Bronirovanie(tour_id, user_id));
+    }
 }

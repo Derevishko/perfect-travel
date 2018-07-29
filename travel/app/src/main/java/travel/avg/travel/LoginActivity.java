@@ -27,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public static boolean status = false;
     Retrofit retrofit;
-    EditText email1, pass1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

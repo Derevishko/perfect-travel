@@ -10,6 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import travel.avg.travel.entities.Bronirovanie;
 import travel.avg.travel.entities.City;
 import travel.avg.travel.entities.ClassTest;
 import travel.avg.travel.entities.Guid;
@@ -25,12 +26,14 @@ public interface ServerApi {
     @POST("user")
     Call<Token> singUp(@Body UserRegister userRegister);
 
-    @FormUrlEncoded
-    @POST("user")
+    @GET("user")
     Call<Void> authorization(@Field("Email") String email, @Field("Password") String password);
 
+    @POST("tour")
+    Call<String> bronirovanie(@Body Bronirovanie bronirovanie);
+
     @GET("user/{user_id}")
-    Call<List<User>> getUser(@Path("user_id") int id);
+    Call<List<User>> getUser(@Path("user_id") String id);
 
     @GET("tour")
     Call<List<Tour>> getTour();
@@ -42,7 +45,7 @@ public interface ServerApi {
     Call<List<Place>> getPlaces(@Path("id_place") int id_place);
 
     @GET("tour/{tour_id}/guide")
-    Call<List<Guid>> getGuid(@Path("id_guid") int id_guid);
+    Call<List<Guid>> getGuid(@Path("id_guid") String id_guid);
 
 
     //test

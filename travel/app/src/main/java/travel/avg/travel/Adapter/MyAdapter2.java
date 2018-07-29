@@ -27,11 +27,9 @@ import travel.avg.travel.entities.Tour;
 
 public class MyAdapter2 extends ArrayAdapter<City> {
     Context context;
-    private List<City> values;
+    private ArrayList<City> values;
 
-    int id_tour;
-
-    public MyAdapter2(Context context, List<City> values) {
+    public MyAdapter2(Context context, ArrayList<City> values) {
         super(context, R.layout.item2, values);
 
         this.context = context;
@@ -49,6 +47,7 @@ public class MyAdapter2 extends ArrayAdapter<City> {
         }
 
         LinearLayout linearLayout = view.findViewById(R.id.city);
+
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
