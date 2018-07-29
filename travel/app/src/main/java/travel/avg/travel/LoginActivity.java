@@ -68,7 +68,10 @@ public class LoginActivity extends AppCompatActivity {
                     Token values = response.body();
                     String id = values.getUsername();
                     String token = values.getAccess_token();
-                    Toast.makeText(getApplication(), "ID: " + id + ", TOKEN: " + token, Toast.LENGTH_LONG).show();
+                    Helper asd = new Helper(LoginActivity.this);
+                    asd.setToken(values.getAccess_token());
+
+                    Toast.makeText(getApplication(), "ID: " + id + ", TOKEN: " + asd.getToken(), Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.putExtra("email_user", email);

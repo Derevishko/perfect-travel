@@ -32,20 +32,24 @@ public class ApiService {
         serverApi = builder.create(ServerApi.class);
     }
 
+//    Helper helper = new Helper(context);
     public Call<Token> LogIn(String email, String password){
         return serverApi.authorization(email, password);
     }
 
     public Call<User> getUser(String user_id){
         return serverApi.getUser(user_id);
+        //return serverApi.getUser(helper.getToken(), user_id);
     }
 
     public Call<Void> Bron(String tour_id, String user_id){
         return serverApi.bronirovanie(new Bronirovanie(tour_id, user_id));
+        //return serverApi.bronirovanie(helper.getToken(), new Bronirovanie(tour_id, user_id));
     }
 
     public Call<Guid> getGuid(String id_tour){
         return serverApi.getGuid(id_tour);
+        //return serverApi.getGuid(helper.getToken(), id_tour);
     }
 
     public Call<Void> SignUp(String name, String email, String password){

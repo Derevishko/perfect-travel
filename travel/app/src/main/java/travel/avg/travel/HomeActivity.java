@@ -13,10 +13,17 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.TileOverlay;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import travel.avg.travel.api.ApiService;
+import travel.avg.travel.entities.Tour;
 import travel.avg.travel.entities.User;
 
 public class HomeActivity extends AppCompatActivity
@@ -57,6 +64,10 @@ public class HomeActivity extends AppCompatActivity
                             ((TextView)findViewById(R.id.emailUser)).setText(email);
                             ((TextView)findViewById(R.id.UserName)).setText("Добро пожаловать " + name);
 
+                            Tours.setList(item.getTours());
+//                            for (String qwerty: Tours.getList()) {
+//                                Toast.makeText(getApplication(), qwerty, Toast.LENGTH_LONG).show();
+//                            }
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Error!" + response.code(), Toast.LENGTH_SHORT).show();
@@ -117,3 +128,4 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 }
+

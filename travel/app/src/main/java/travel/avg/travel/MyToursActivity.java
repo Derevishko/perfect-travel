@@ -14,6 +14,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import travel.avg.travel.Adapter.MyAdapter1;
+import travel.avg.travel.Adapter.MyAdapter4;
 import travel.avg.travel.api.Helper;
 import travel.avg.travel.api.ServerApi;
 import travel.avg.travel.entities.Tour;
@@ -41,9 +42,9 @@ public class MyToursActivity extends AppCompatActivity {
                     values = response.body();
                     ArrayList<Tour> arrayList = new ArrayList();
                     arrayList.addAll(values);
-                    MyAdapter1 myAdapter1 = new MyAdapter1(MyToursActivity.this, arrayList);
+                    MyAdapter4 myAdapter4 = new MyAdapter4(MyToursActivity.this, arrayList);
                     ListView lvMain = findViewById(R.id.lvMain);
-                    lvMain.setAdapter(myAdapter1);
+                    lvMain.setAdapter(myAdapter4);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "faild code : " + response.code(), Toast.LENGTH_SHORT).show();

@@ -1,15 +1,17 @@
 package travel.avg.travel.entities;
 
+import java.util.List;
+
 public class User {
     private String id;
     private String name;
     String email;
-    private String[] Tours;
+    private List<String> Tours;
 
     public User() {
     }
 
-    public User(String id, String name, String email, String[] tours) {
+    public User(String id, String name, String email, List<String> tours) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -28,7 +30,7 @@ public class User {
         return email;
     }
 
-    public String[] getTours() {
+    public List<String> getTours() {
         return Tours;
     }
 }
