@@ -17,7 +17,6 @@ myEmit.on('tourCheked', function(res,client,result){
   result ? myEmit.emit('tourChekComplite',res,client,result) : null
 });
 myEmit.on('tourChekComplite', function(res,client,result){
-
   res.send(!result);
   client.close();
 });
@@ -35,10 +34,15 @@ app.get('/api/',function(req,res) {
 
 // тестовый запрос
 app.get('/api/test', function(req, res){
+
   mongoClient.connect(url, function(err, client){
-    client.db('TourAgencyDB').collection("Tours").findOne({name: 'Tour1'},function(err,result) {console.log(result.from.getTime())})
-    res.send('nol')
-    client.close()
+    client.db('TourAgencyDB').collection('Tour_Places').findOne({f_id: objectId('5b5c377b2ba40c0c385784cc')},function(err,result) {
+      console.log(result)
+    })
+      // let p = 0;
+      // let pMax = city.places.length;
+      // city.places = result.map(x => ({name:x.place_id, from: x.from, to: x.to, status: x.status}));
+      // myEmit.emit('onloadTourPlaces',city.places, res, client)
   })
 });
 
@@ -150,38 +154,117 @@ app.get('/api/tour',function(req,res) {
   })
 });
 
-//полная информация о туре --- не готово
-app.get('/api/tour/:name', function(req, res) {
-  mongoClient.connect(url, function(err,client) {
+myEmit.on('tourOnload',function(result,res,client){
+  let data = {name: result.name, descriotion: result.descriotion,
+    from:result.from,to:result.to,freeSeats:result.freeSeats,
+    allSeats:result.allSeats,price:result.price}
+    myEmit.emit('addGuid',data,res,client,result._id)
+    myEmit.emit('loadTourCities', data, res, client, result._id)
+});
+myEmit.emit('addGuid',function(data,res,client,id) {
+  client.db('TourAgencyDB').collection('Tour_Guide').find({tour_id: objectId(id)}).
+  toArray(function(err,result) {
+    if(err || !result){
+      error(res,client)
+    }
+    data.guide = result.map(x=>x.guid_id);
+    //расписать гида
+  })
+});
+
+myEmit.on('loadTourCities', function(data,res,client, id){
+  client.db('TourAgencyDB').collection('Tour_Cities').
+  find({tour_id:objectId(id)}).toArray(function(err,result){
+    if (err || !result) {
+      error(res,client)
+    }
+    data.cities = result.map(x=>({name:x.city_id,from:x.from,to:x.to,status:x.status,places:x._id}))
+    myEmit.emit('onloadTourCities',data,res,client);
+  })
+});
+
+myEmit.on('onloadTourCities',function(data,res,client){
+  console.log('onloadTourCities');
+  let l = data.cities.length;
+  for (let city of data.cities) {
+    client.db('TourAgencyDB').collection('Cities').findOne({_id: objectId(city.name)},
+    function(err,result) {
+      if(err || !result) {
+        error(res,client)
+      }
+      city.name = result.name;
+      city.description = result.description;
+      city.photos = result.photos;
+      myEmit.emit('onloadCity',city,res,client);
+      l--;
+      if (!l) {
+        myEmit.emit('loadPlaces',data,res,client)
+      }
+    })
+  }
+});
+myEmit.on('loadPlaces', function(data,res,client) {
+  let l = data.cities.length;
+  for (let city of data.cities) {
+    client.db('TourAgencyDB').collection('Tour_Places').find({f_id: objectId(city.places)}).toArray(function(err,result) {
+      if(err || !result) {
+        error(res,client)
+      }
+      city.places = result.map(x => ({name:x.place_id, from:x.from, to:x.to,status:x.status}));
+      l--;
+      if(!l) {
+        myEmit.emit('onloadPlaces',data,res,client)
+      }
+    })
+  }
+});
+myEmit.on('onloadPlaces',function(data,res,client) {
+  let c = data.cities.length;
+  if (!c) {
+    myEmit.emit('done',data,res,client)
+  }
+  for (let city of data.cities) {
+    let p = city.places.length;
+     if(!p){
+       c--
+     }
+    for( let place of city.places ) {
+      client.db('TourAgencyDB').collection('Places').findOne({_id: objectId(place.name)},
+      function(err,result) {
+        place.name = result.name;
+        place.description = result.descriotion;
+        place.photos = result.photos;
+        p--;
+        if (!p) {
+          c--;
+          if (!c) {
+            myEmit.emit('done',data,res,client)
+          }
+        }
+      })
+    }
+  }
+});
+
+myEmit.on('done', function(data,res,client) {
+  res.send(data);
+  client.close();
+})
+//полная информация о туре --- готово
+app.get('/api/tour/:name', function(req,res){
+  mongoClient.connect(url, function(err,client){
     if (err) {
       error(res,client)
     }
-    let db = client.db('TourAgencyDB');
-    let data = null;
-    db.collection('Tours').findOne({name: req.params.name}, function(err, result) {
+    client.db('TourAgencyDB').collection('Tours').
+    findOne({name: req.params.name}, function(err,result){
       if (err || !result) {
         error(res,client)
       }
-      data = {from: result.from, to: result.to, freeSeats: result.freeSeats, allSeats: result.allSeats, cities: result._id};
-      db.collection('Tour_Cities').find({tour_id: data.cities}).toArray(function(err, result) {
-        if (err || !result) {
-          error(res,client)
-        }
-        data.cities = result.map(x => ({from: x.from, to: x.to, freeSeats: x.freeSeats, status: x.status,
-           city: db.collection('Cities').findOne({_id: objectId(x.city_id)}, function(err, result) {
-             if (err || !result) {
-               error(res,client)
-             }
-             return {name: result.name};
-           })
-         }));
-         res.json(data);
-         client.close()
-      })
+      myEmit.emit('tourOnload', result,res,client);
     })
   })
 })
-
 // сохраниние тура в базу данных --- не готово
 app.post( '/api/createtour', function(req, res) {
   //save tour on database
