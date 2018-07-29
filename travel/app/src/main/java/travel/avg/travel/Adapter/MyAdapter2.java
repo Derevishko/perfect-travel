@@ -8,22 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import travel.avg.travel.MapsActivity;
 import travel.avg.travel.R;
-import travel.avg.travel.RoutActivity;
 import travel.avg.travel.entities.City;
-import travel.avg.travel.entities.Tour;
 
 public class MyAdapter2 extends ArrayAdapter<City> {
     Context context;
@@ -48,15 +40,17 @@ public class MyAdapter2 extends ArrayAdapter<City> {
 
         LinearLayout linearLayout = view.findViewById(R.id.city);
 
+        final City item = values.get(position);
+
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MapsActivity.class);
+                intent.putExtra("CityName", item.getName());
+                intent.putExtra("CityId", item.getId());
                 context.startActivity(intent);
             }
         });
-
-        City item = values.get(position);
         ((TextView) view.findViewById(R.id.vname)).setText(item.getName());
         ((TextView) view.findViewById(R.id.vdescription)).setText(item.getDescription());
 

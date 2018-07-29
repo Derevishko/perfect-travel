@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import travel.avg.travel.MapsActivity;
 import travel.avg.travel.R;
 import travel.avg.travel.entities.City;
 import travel.avg.travel.entities.Place;
@@ -20,9 +21,9 @@ import travel.avg.travel.entities.Place;
 public class MyAdapter3 extends ArrayAdapter<Place>{
 
     Context context;
-    private List<Place> values;
+    private ArrayList<Place> values;
 
-    public MyAdapter3(Context contextn, List<Place> values) {
+    public MyAdapter3(Context contextn, ArrayList<Place> values) {
         super(contextn, R.layout.item3, values);
 
         this.context = contextn;
@@ -53,12 +54,10 @@ public class MyAdapter3 extends ArrayAdapter<Place>{
             }
         });
 
-        Place cities = values.get(position);
+        Place item = values.get(position);
 
-        ((TextView)view.findViewById(R.id.infoTime)).setText(cities.getTime());
-//        ((TextView) view.findViewById(R.id.vname)).setText(cities.city_name);
-//        ((TextView) view.findViewById(R.id.vdescription)).setText(cities.city_desc);
-
+        ((TextView)view.findViewById(R.id.infoTime)).setText(item.getPlace_name() + "\n" + item.getPlace_description() + "\n"
+                                                    + item.getTime());
         return view;
     }
 }

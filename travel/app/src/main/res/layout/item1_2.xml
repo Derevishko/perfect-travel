@@ -64,15 +64,6 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:text="@string/info"/>
-
-        <Button
-            android:id="@+id/bron"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:textAlignment="center"
-            android:visibility="visible"
-            android:text="@string/route"/>
     </LinearLayout>
 
 </LinearLayout>

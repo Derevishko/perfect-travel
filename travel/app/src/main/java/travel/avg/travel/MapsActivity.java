@@ -1,5 +1,6 @@
 package travel.avg.travel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.ListView;
@@ -23,6 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import travel.avg.travel.Adapter.MyAdapter3;
 import travel.avg.travel.api.Helper;
 import travel.avg.travel.api.ServerApi;
+import travel.avg.travel.entities.City;
 import travel.avg.travel.entities.Place;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -30,6 +32,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     List<Place> values = new ArrayList<>();
     Retrofit retrofit;
+
+    String NameCity;
+    String CityId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        CityId = getIntent().getStringExtra("CityId");
+        NameCity =getIntent().getStringExtra("CityName");
 
         retrofit= new Retrofit.Builder()
                 .baseUrl(Helper.HOST)
@@ -47,13 +54,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
         ServerApi serverApi = retrofit.create(ServerApi.class);
-        Call<List<Place>> call = serverApi.getPlaces(123);
+        Call<List<Place>> call = serverApi.getPlaces(Clas.getQwe(), CityId);
         call.enqueue(new Callback<List<Place>>() {
             @Override
             public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
                 if(response.isSuccessful()){
                     values = response.body();
-                    MyAdapter3 myAdapter3 = new MyAdapter3(MapsActivity.this, values);
+                    ArrayList<Place> arrayList = new ArrayList<>();
+                    arrayList.addAll(values);
+                    MyAdapter3 myAdapter3 = new MyAdapter3(MapsActivity.this, arrayList);
                     ListView lvMain = findViewById(R.id.map);
                     lvMain.setAdapter(myAdapter3);
                 }

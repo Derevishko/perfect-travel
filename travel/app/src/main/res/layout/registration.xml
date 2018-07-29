@@ -7,16 +7,22 @@
     tools:context=".RegActivity">
 
     <TextView
+        android:paddingTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/test"
-        android:textSize="20dp"
-        android:minLines="0"
-        android:maxLines="100"/>
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/input_name"/>
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:id="@+id/editName" />
 
     <TextView
-        android:id="@+id/tv1"
-        android:paddingTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -34,23 +40,6 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Nam"
-        android:textAlignment="center"
-        android:text="@string/input_name"/>
-
-    <EditText
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:textAlignment="center"
-        android:id="@+id/editName" />
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv2"
         android:textAlignment="center"
         android:text="@string/input_pas"/>
 

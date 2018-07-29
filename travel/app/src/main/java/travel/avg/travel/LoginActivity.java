@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -22,6 +23,8 @@ import travel.avg.travel.api.Helper;
 import travel.avg.travel.api.ServerApi;
 import travel.avg.travel.entities.ClassTest;
 import travel.avg.travel.entities.Token;
+import travel.avg.travel.entities.Tour;
+import travel.avg.travel.entities.User;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,53 +36,20 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        retrofit= new Retrofit.Builder()
+        retrofit = new Retrofit.Builder()
                 .baseUrl(Helper.HOST)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
-
-    public void onClick(View view){
-        final String email = ((EditText)findViewById(R.id.editLogin)).getText().toString();
-        final String pass = ((EditText)findViewById(R.id.editPas)).getText().toString();
-        switch (view.getId()){
+    public void onClick(View view) {
+        final String email = ((EditText) findViewById(R.id.editLogin)).getText().toString();
+        final String pass = ((EditText) findViewById(R.id.editPas)).getText().toString();
+        switch (view.getId()) {
             case R.id.logUser:
-                SignIn(email, pass);
-                if(email!=null && pass!=null){
-                    try {
-                        ServerApi serverApi = retrofit.create(ServerApi.class);
-                        Call<Void> item = serverApi.authorization(email, pass);
-                        item.enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
-                                if (response.code()==200){
-                                    status=true;
-
-                                    //String list = response.body();
-                                    String id = null;
-
-                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                    intent.putExtra("email_user", email);
-                                    intent.putExtra("id_user", id);
-                                    startActivity(intent);
-                                }
-                                else {
-                                    Toast.makeText(getApplicationContext(), "Error!" + response.code(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-                                Toast.makeText(getApplicationContext(), "Error: " + t.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                    catch (Exception e){
-                        Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                    }
+                if (!email.equals("") && !pass.equals("")) {
+                    LogIn(email, pass);
                 }
-                finish();
                 break;
             case R.id.regUser:
                 Intent reg = new Intent(LoginActivity.this, RegActivity.class);
@@ -89,9 +59,31 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void SignIn(final String email, String password){
+    public void LogIn(final String email, String pass) {
+        new ApiService(this).LogIn(email, pass).enqueue(new Callback<Token>() {
+            @Override
+            public void onResponse(Call<Token> call, Response<Token> response) {
+                if (response.code() == 200) {
+                    status = true;
+                    Token values = response.body();
+                    String id = values.getUsername();
+                    String token = values.getAccess_token();
+                    Toast.makeText(getApplication(), "ID: " + id + ", TOKEN: " + token, Toast.LENGTH_LONG).show();
 
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.putExtra("email_user", email);
+                    intent.putExtra("id_user", id);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Error code!" + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<Token> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error: " + t.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
 }

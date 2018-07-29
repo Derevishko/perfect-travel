@@ -12,7 +12,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import travel.avg.travel.entities.Bronirovanie;
+import travel.avg.travel.entities.Guid;
 import travel.avg.travel.entities.Token;
+import travel.avg.travel.entities.User;
 import travel.avg.travel.entities.UserRegister;
 
 public class ApiService {
@@ -22,9 +24,7 @@ public class ApiService {
 
     public ApiService(Context context) {
         this.context =context;
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
+
         builder = new Retrofit.Builder()
                 .baseUrl(Helper.HOST)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -32,7 +32,23 @@ public class ApiService {
         serverApi = builder.create(ServerApi.class);
     }
 
-    public Call<String> Bron(String tour_id, String user_id){
+    public Call<Token> LogIn(String email, String password){
+        return serverApi.authorization(email, password);
+    }
+
+    public Call<User> getUser(String user_id){
+        return serverApi.getUser(user_id);
+    }
+
+    public Call<Void> Bron(String tour_id, String user_id){
         return serverApi.bronirovanie(new Bronirovanie(tour_id, user_id));
+    }
+
+    public Call<Guid> getGuid(String id_tour){
+        return serverApi.getGuid(id_tour);
+    }
+
+    public Call<Void> SignUp(String name, String email, String password){
+        return serverApi.singUp(new UserRegister(name, email, password));
     }
 }

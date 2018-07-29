@@ -45,41 +45,33 @@ public class RegActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (editName!=null && editLogin!=null && editPas!=null){
-                    UserRegister target = new UserRegister(editName.getText().toString(),
-                                                            editLogin.getText().toString(),
-                                                            editPas.getText().toString());
-                    Gson gson = new Gson();
-                    String json = gson.toJson(target);
-
-                    retrofit= new Retrofit.Builder()
-                            .baseUrl(Helper.HOST)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
-
-                    ServerApi serverApi = retrofit.create(ServerApi.class);
-                    Call<Token> item = serverApi.singUp(target);
-                    item.enqueue(new Callback<Token>() {
-                                @Override
-                                public void onResponse(Call<Token> call, Response<Token> response) {
-                                        if (response.code() == 200){
-                                            Intent intent = new Intent(RegActivity.this, HomeActivity.class);
-                                            startActivity(intent);
-                                        }
-                                        else {
-                                            Toast.makeText(getApplicationContext(), "Error code" + response.code(), Toast.LENGTH_SHORT).show();
-                                        }
-                                }
-
-                                @Override
-                                public void onFailure(Call<Token> call, Throwable t) {
-                                    Toast.makeText(getApplicationContext(), "Error : " + t.toString(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                    finish();
+                    SignUp(editName.getText().toString(), editLogin.getText().toString(), editPas.getText().toString());
                 }
                 else {
                     Toast.makeText(getApplication(), "Error pole: ", Toast.LENGTH_LONG ).show();
                 }
+            }
+        });
+    }
+
+    public void SignUp(String name, String email, String password){
+        new ApiService(RegActivity.this).SignUp(name, email, password)
+                .enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200){
+                    Intent intent = new Intent(RegActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Error code: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error : " + t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

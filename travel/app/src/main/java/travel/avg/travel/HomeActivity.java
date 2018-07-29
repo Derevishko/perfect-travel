@@ -11,9 +11,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import travel.avg.travel.api.ApiService;
+import travel.avg.travel.entities.User;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +39,35 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        String email = getIntent().getStringExtra("email_user");
-        //((TextView)findViewById(R.id.emailUser)).setText(email);
-        //((TextView)findViewById(R.id.nameUser)).setText("");
+        id = getIntent().getStringExtra("id_user");
+        GetUser(id);
+
+    }
+
+    public void GetUser(String id_user){
+        new ApiService(this).getUser(id_user)
+                .enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if(response.isSuccessful()){
+                            User item = response.body();
+                            String name = item.getName();
+                            String email = item.getEmail();
+                            ((TextView)findViewById(R.id.nameUser)).setText(name);
+                            ((TextView)findViewById(R.id.emailUser)).setText(email);
+                            ((TextView)findViewById(R.id.UserName)).setText("Добро пожаловать " + name);
+
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Error!" + response.code(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "Error: " + t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

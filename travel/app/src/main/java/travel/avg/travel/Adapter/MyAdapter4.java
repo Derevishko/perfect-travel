@@ -1,6 +1,5 @@
 package travel.avg.travel.Adapter;
 
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,21 +20,19 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import travel.avg.travel.HomeActivity;
+import travel.avg.travel.MyToursActivity;
 import travel.avg.travel.R;
 import travel.avg.travel.RoutActivity;
 import travel.avg.travel.api.ApiService;
 import travel.avg.travel.entities.Guid;
 import travel.avg.travel.entities.Tour;
-import travel.avg.travel.entities.User;
 
-public class MyAdapter1 extends ArrayAdapter<Tour> {
-
+public class MyAdapter4 extends ArrayAdapter<Tour> {
     Context context;
     private ArrayList<Tour> values;
 
-    public MyAdapter1(Context context, ArrayList<Tour> values) {
-        super(context, R.layout.item, values);
+    public MyAdapter4(Context context, ArrayList<Tour> values) {
+        super(context, R.layout.item1_2, values);
 
         this.context = context;
         this.values = values;
@@ -58,7 +55,6 @@ public class MyAdapter1 extends ArrayAdapter<Tour> {
         final TextView name_guid = view.findViewById(R.id.name_guid);
         final TextView place = view.findViewById(R.id.place);
         final TextView price = view.findViewById(R.id.price);
-        final Button bron = view.findViewById(R.id.bron);
         final Button btn = view.findViewById(R.id.info);
 
         //date.setText(new SimpleDateFormat("EEE, d MMM yyyy HH:mm").format(new Date(item.getDate())));
@@ -69,7 +65,7 @@ public class MyAdapter1 extends ArrayAdapter<Tour> {
         description.setText(item.getDescription());
         goneVisible.setText(item.getId());
         name_guid.setText("Гид: " + item.getGuide());
-        place.setText("Свободных мест: " + String.valueOf(item.getFree()) + "$");
+        place.setText("Свободных мест: " + String.valueOf(item.getFree()));
         price.setText("Стоимость тура: " + String.valueOf(item.getPrice()) + "$");
 
         name_guid.setOnClickListener(new View.OnClickListener() {
@@ -138,30 +134,6 @@ public class MyAdapter1 extends ArrayAdapter<Tour> {
                 imageView.setImageResource(R.drawable.ic_past);
                 break;
         }
-
-        final int finalA = a;
-        bron.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new ApiService(context).Bron(item.getId(), HomeActivity.id)
-                        .enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
-                                if(response.code() == 200){
-                                    Toast.makeText(context, "Вы забронировали тур", Toast.LENGTH_LONG).show();
-                                }
-                                else {
-                                    Toast.makeText(context, "Вы не можете забронировать тур", Toast.LENGTH_LONG).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-                                Toast.makeText(context, "Error: " + t.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
-        });
 
         return view;
     }

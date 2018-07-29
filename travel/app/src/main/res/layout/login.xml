@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".RegActivity">
 
     <TextView
-        android:id="@+id/tv1"
         android:paddingTop="20dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/input_email"
+        android:textAlignment="center"
         android:layout_centerHorizontal="true"/>
 
     <EditText
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv1"
-        android:layout_centerHorizontal="true"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
         android:id="@+id/editLogin" />
 
     <TextView
         android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:id="@+id/tv2"
-        android:layout_below="@id/editLogin"
-        android:text="@string/input_pass"
-        android:layout_centerHorizontal="true"/>
+        android:text="@string/input_pass"/>
 
     <EditText
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv2"
-        android:layout_centerHorizontal="true"
+        android:inputType="textPassword"
+        android:textAlignment="center"
         android:id="@+id/editPas" />
 
     <Button
@@ -43,19 +43,15 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editPas"
         android:text="@string/log_in"
-        android:onClick="onClick"
-        android:layout_centerHorizontal="true"/>
+        android:onClick="onClick"/>
 
     <Button
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logUser"
         android:text="@string/sing_up"
-        android:layout_centerHorizontal="true"
         android:id="@+id/regUser"
         android:onClick="onClick"/>
 
-</RelativeLayout>
+</LinearLayout>

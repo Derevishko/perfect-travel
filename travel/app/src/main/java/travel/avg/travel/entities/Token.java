@@ -5,6 +5,9 @@ public class Token {
     //id
     String username;
 
+    public Token() {
+    }
+
     public Token(String access_token, String username) {
         this.access_token = access_token;
         this.username = username;
