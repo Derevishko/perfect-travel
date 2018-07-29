@@ -32,7 +32,7 @@ public class MyAdapter2 extends ArrayAdapter<City> {
     int id_tour;
 
     public MyAdapter2(Context context, List<City> values) {
-        super(context, R.layout.item2);
+        super(context, R.layout.item2, values);
 
         this.context = context;
         this.values = values;

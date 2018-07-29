@@ -33,6 +33,8 @@ public class TourActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        final ListView lvMain = findViewById(R.id.listView);
+
         ServerApi serverApi = retrofit.create(ServerApi.class);
         Call<List<Tour>> call = serverApi.getTour();
         call.enqueue(new Callback<List<Tour>>() {
@@ -42,8 +44,10 @@ public class TourActivity extends AppCompatActivity {
                     values = response.body();
                     ArrayList<Tour> arrayList = new ArrayList();
                     arrayList.addAll(values);
+//                    for (Tour item : values) {
+//                        Toast.makeText(TourActivity.this, item.getDate(), Toast.LENGTH_LONG).show();
+//                    }
                     MyAdapter1 myAdapter1 = new MyAdapter1(TourActivity.this, arrayList);
-                    ListView lvMain = findViewById(R.id.lvMain);
                     lvMain.setAdapter(myAdapter1);
                 }
                 else {

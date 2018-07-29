@@ -35,8 +35,6 @@ public class TestActivity extends AppCompatActivity {
         ServerApi serverApi = retrofit.create(ServerApi.class);
         Call<List<ClassTest>> call = serverApi.getTest();
 
-
-
         call.enqueue(new Callback<List<ClassTest>>() {
             @Override
             public void onResponse(Call<List<ClassTest>> call, Response<List<ClassTest>> response) {

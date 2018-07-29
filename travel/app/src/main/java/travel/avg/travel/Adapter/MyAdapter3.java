@@ -22,10 +22,8 @@ public class MyAdapter3 extends ArrayAdapter<Place>{
     Context context;
     private List<Place> values;
 
-
-
     public MyAdapter3(Context contextn, List<Place> values) {
-        super(contextn, R.layout.item3);
+        super(contextn, R.layout.item3, values);
 
         this.context = contextn;
         this.values = values;
