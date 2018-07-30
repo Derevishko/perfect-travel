@@ -12,7 +12,7 @@ const error = function (res, client) {
 }
 const events = require('events')
 const myEmit = new events.EventEmitter();
-
+	
 myEmit.on('tourCheked', function(res,client,result){
   result ? myEmit.emit('tourChekComplite',res,client,result) : null
 });
@@ -23,11 +23,13 @@ myEmit.on('tourChekComplite', function(res,client,result){
 
 
 app.use(bodyParser.json());
-app.use('/api/dist',express.static('dist'));
-app.use( '/api/src', express.static('src'));
+app.use('/JS',express.static('JS'));
+// app.use('/',express.static(''));
+// app.use( '/api/src', express.static('src'));
 
 // открытие страницы
 app.get('/api/',function(req,res) {
+	console.log('connect')
   res.setHeader('200','ok',{'Content-type' : 'text/html; charset = utf8'});
   res.sendFile( __dirname + '/index.html')
 });

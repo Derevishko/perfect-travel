@@ -1,0 +1,31 @@
+<div id="home">
+	<h1 class="slogan text-center">Добро пожаловать в Perfect Travel!</h1>
+	<div class="bd-top">
+		<div class="wrapper row">
+			<div class="left">
+				<div class="col">
+					<div class="search row">
+						<input id="search" class="form mg-a" type="search" placeholder="Поиск">
+					</div>
+					<div class="cb-div ">
+						<div class="mg-a">
+							<ul class="cb-ul">
+
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="col">
+					<div class="new-tour">
+						<a href="#createTour"><div class="round row"><i class="fa fa-plus"></i></div></a>
+					</div>
+					<div class="rest-tours">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

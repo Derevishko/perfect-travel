@@ -1,0 +1,52 @@
+<div id="createTour">
+	<h1 class="slogan text-left">Создание тура</h1>
+	<div class="bd-top">
+		<div class="wrapper container-lg">
+			<div class="container-md text-center">
+
+				
+				<div class="background off">
+					<div class="city-box">
+						<span class="gap">Выберите город</span>
+						<div class="container-lg">
+							<input type="search" class="width-lg gap form" placeholder="Поиск">
+						</div>
+						<div class="container-lg">
+							<select id="select" class="width-lg gap form">
+								<option value="" selected disabled hidden>Не выбрано</option>
+							</select>
+						</div>
+						<div class="container-lg">
+							<ul class="places gap width-lg mg-a">
+								
+							</ul>
+						</div>
+						<button id="ready" class="btn gap">Готово</button>
+					</div>
+				</div>
+
+				<h2 class="gap">Введите название тура</h2>
+				<input type="text" class="form width-sm gap" placeholder="Название">
+				<h2 class="gap">Дата начала тура</h2>
+				<input type="datetime" class="form width-sm gap" placeholder="YYYY-MM-DDTHH:MM:SS:000">
+				<h2 class="gap">Дата окончания тура</h2>
+				<input type="datetime" class="form width-sm gap" placeholder="YYYY-MM-DDTHH:MM:SS:000">
+				<h2 class="gap">Количество мест</h2>
+				<input type="text" class="form width-sm gap" placeholder="Количество мест">
+				<h2 class="gap">Подробно опишите этот тур</h2>
+				<textarea class="form width-sm gap"></textarea>
+				<h2 class="gap">Стоимость тура</h2>
+				<input type="text" class="form width-sm gap">
+				<h2 class="gap">Города, входящие в маршрут</h2>
+				<div class="mg-a form width-sm gap">
+					<button id="addCity" class="btn">Добавить</button>
+					<ul class="cities row wrap">
+											
+					</ul>
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+</div>		
