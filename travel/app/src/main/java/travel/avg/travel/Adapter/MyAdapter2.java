@@ -53,7 +53,10 @@ public class MyAdapter2 extends ArrayAdapter<City> {
         });
         ((TextView) view.findViewById(R.id.vname)).setText(item.getName());
         ((TextView) view.findViewById(R.id.vdescription)).setText(item.getDescription());
-
+//        ImageView img = view.findViewById(R.id.photoCity);
+//        URL url = new URL("http://image10.bizrate-images.com/resize?sq=60&uid=2216744464");
+//        Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+//        img.setImageBitmap(bmp);
         return view;
     }
 }

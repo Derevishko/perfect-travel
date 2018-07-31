@@ -5,14 +5,14 @@ public class Place {
     private String place_name;
     private String place_description;
     private int place_photo;
-    private int place_coords;
+    private Double[] place_coords;
     private String time;
     private String place_status;
 
     public Place() {
     }
 
-    public Place(int id_city, String place_name, String place_description, int place_photo, int place_coords, String time, String place_status) {
+    public Place(int id_city, String place_name, String place_description, int place_photo, Double[] place_coords, String time, String place_status) {
         this.id_city = id_city;
         this.place_name = place_name;
         this.place_description = place_description;
@@ -38,7 +38,7 @@ public class Place {
         return place_photo;
     }
 
-    public int getPlace_coords() {
+    public Double[] getPlace_coords() {
         return place_coords;
     }
 

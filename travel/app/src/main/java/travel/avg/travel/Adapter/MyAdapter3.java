@@ -61,3 +61,4 @@ public class MyAdapter3 extends ArrayAdapter<Place>{
         return view;
     }
 }
+

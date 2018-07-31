@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +22,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import travel.avg.travel.R;
 import travel.avg.travel.RoutActivity;
-import travel.avg.travel.Tours;
 import travel.avg.travel.api.ApiService;
 import travel.avg.travel.entities.Guid;
 import travel.avg.travel.entities.Tour;
@@ -62,91 +60,87 @@ public class MyAdapter4 extends ArrayAdapter<Tour> {
 
         final Tour item = values.get(position);
 
-        for (String idTur : Tours.getList()) {
-            if (idTur.equals(item.getId())){
-                header.setText(item.getName());
-                description.setText(item.getDescription());
-                goneVisible.setText(item.getId());
-                name_guid.setText("Гид: " + item.getGuide());
-                place.setText("Свободных мест: " + String.valueOf(item.getFree()));
-                price.setText("Стоимость тура: " + String.valueOf(item.getPrice()) + "$");
+        header.setText(item.getName());
+        description.setText(item.getDescription());
+        goneVisible.setText(item.getId());
+        name_guid.setText("Гид: " + item.getGuide());
+        place.setText("Свободных мест: " + String.valueOf(item.getFree()));
+        price.setText("Стоимость тура: " + String.valueOf(item.getPrice()) + "$");
 
-                name_guid.setOnClickListener(new View.OnClickListener() {
+        name_guid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String[] phone = new String[1];
+                new ApiService(context).getGuid(item.getId()).enqueue(new Callback<Guid>() {
                     @Override
-                    public void onClick(View v) {
-                        final String[] phone = new String[1];
-                        new ApiService(context).getGuid(item.getId()).enqueue(new Callback<Guid>() {
-                            @Override
-                            public void onResponse(Call<Guid> call, Response<Guid> response) {
-                                if (response.isSuccessful()){
-                                    Guid guid = response.body();
-                                    phone[0] = guid.getName();
-                                }
-                                else {
-                                    Toast.makeText(context, "Error!" + response.code(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
+                    public void onResponse(Call<Guid> call, Response<Guid> response) {
+                        if (response.isSuccessful()){
+                            Guid guid = response.body();
+                            phone[0] = guid.getName();
+                        }
+                        else {
+                            Toast.makeText(context, "Error!" + response.code(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<Guid> call, Throwable t) {
+                        Toast.makeText(context, "Error: " + t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(item.getGuide())
+                        .setMessage("Имя: " + item.getGuide() + "\nНомер телефона: " + phone[0])
+                        .setIcon(0)
+                        .setNegativeButton("Ок", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onFailure(Call<Guid> call, Throwable t) {
-                                Toast.makeText(context, "Error: " + t.toString(), Toast.LENGTH_SHORT).show();
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
                             }
                         });
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setTitle(item.getGuide())
-                                .setMessage("Имя: " + item.getGuide() + "\nНомер телефона: " + phone[0])
-                                .setIcon(0)
-                                .setNegativeButton("Ок", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
-                                    }
-                                });
-                        AlertDialog alert = builder.create();
-                        alert.show();
-                    }
-                });
-
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(context, RoutActivity.class);
-                        intent.putExtra("id_Tour", goneVisible.getText().toString());
-                        context.startActivity(intent);
-                    }
-                });
-
-                int a = 0;
-                if(item.getStatus().equals("Past")){
-                    a = -1;
-                }
-                else if(item.getStatus().equals("Present")){
-                    a=0;
-                }
-                else if(item.getStatus().equals("Future"))
-                    a=1;
-
-                switch (a){
-                    case -1 :
-                        imageView.setImageResource(R.drawable.ic_time);
-                        break;
-                    case 0:
-                        imageView.setImageResource(R.drawable.ic_present);
-                        break;
-                    case 1:
-                        imageView.setImageResource(R.drawable.ic_past);
-                        break;
-                }
-                return view;
+                AlertDialog alert = builder.create();
+                alert.show();
             }
+        });
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RoutActivity.class);
+                intent.putExtra("id_Tour", goneVisible.getText().toString());
+                context.startActivity(intent);
+            }
+        });
+
+        int a = 0;
+        if(item.getStatus().equals("Past")){
+            a = -1;
         }
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)(view.findViewById(R.id.linear)).getLayoutParams();
-        params.weight = 0f;
-        params.height = 0;
-        (view.findViewById(R.id.linear)).setLayoutParams(params);
+        else if(item.getStatus().equals("Present")){
+            a=0;
+        }
+        else if(item.getStatus().equals("Future"))
+            a=1;
+
+        switch (a){
+            case -1 :
+                imageView.setImageResource(R.drawable.ic_time);
+                break;
+            case 0:
+                imageView.setImageResource(R.drawable.ic_present);
+                break;
+            case 1:
+                imageView.setImageResource(R.drawable.ic_present);
+                break;
+        }
+        return view;
+
+//        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)(view.findViewById(R.id.linear)).getLayoutParams();
+//        params.weight = 0f;
+//        params.height = 0;
+//        (view.findViewById(R.id.linear)).setLayoutParams(params);
         //view.setLayoutParams(param);
 //        (view.findViewById(R.id.linear)).setVisibility(View.GONE);
 //        (view.findViewById(R.id.linear)).setLayoutParams(null);
-        return view;
     }
 }

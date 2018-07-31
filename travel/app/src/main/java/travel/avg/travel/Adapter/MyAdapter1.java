@@ -27,7 +27,6 @@ import travel.avg.travel.RoutActivity;
 import travel.avg.travel.api.ApiService;
 import travel.avg.travel.entities.Guid;
 import travel.avg.travel.entities.Tour;
-import travel.avg.travel.entities.User;
 
 public class MyAdapter1 extends ArrayAdapter<Tour> {
 
@@ -132,10 +131,9 @@ public class MyAdapter1 extends ArrayAdapter<Tour> {
                 imageView.setImageResource(R.drawable.ic_time);
                 break;
             case 0:
-                imageView.setImageResource(R.drawable.ic_present);
                 break;
             case 1:
-                imageView.setImageResource(R.drawable.ic_past);
+                imageView.setImageResource(R.drawable.ic_present);
                 break;
         }
 

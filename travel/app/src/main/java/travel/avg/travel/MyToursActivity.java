@@ -42,9 +42,15 @@ public class MyToursActivity extends AppCompatActivity {
                     values = response.body();
                     ArrayList<Tour> arrayList = new ArrayList();
                     arrayList.addAll(values);
-                    MyAdapter4 myAdapter4 = new MyAdapter4(MyToursActivity.this, arrayList);
-                    ListView lvMain = findViewById(R.id.lvMain);
-                    lvMain.setAdapter(myAdapter4);
+                    for(int i = 0; i < arrayList.size(); i++){
+                        for(int j = 0; j < Tours.getList().size(); j++){
+                            if(arrayList.get(i).getId().equals(Tours.getList().get(j))){
+                                MyAdapter4 myAdapter4 = new MyAdapter4(MyToursActivity.this, arrayList);
+                                ListView lvMain = findViewById(R.id.lvMain);
+                                lvMain.setAdapter(myAdapter4);
+                            }
+                        }
+                    }
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "faild code : " + response.code(), Toast.LENGTH_SHORT).show();
