@@ -1,15 +1,24 @@
 package travel.avg.travel;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.List;
 
 public class Tours{
+    public static String idUser;
     public static List<String> list;
     public static String id_Tour;
     public static List<Double[]> coord;
+
+    public static String getIdUser() {
+        return idUser;
+    }
+
+    public static void setIdUser(String idUser) {
+        Tours.idUser = idUser;
+    }
+
+    public static void setCoord(List<Double[]> coord) {
+        Tours.coord = coord;
+    }
 
     public static List<String> getList() {
         return list;
@@ -34,11 +43,5 @@ public class Tours{
 
     public static void setCoord(Double[] coord) {
         Tours.coord.add(coord);
-    }
-
-    public static void getCoord(GoogleMap googleMap, String name){
-        for (Double[] item : Tours.coord) {
-            googleMap.addMarker(new MarkerOptions().position(new LatLng(item[0], item[1])).title(name));
-        }
     }
 }

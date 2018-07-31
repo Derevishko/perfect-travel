@@ -24,6 +24,7 @@ import retrofit2.Response;
 import travel.avg.travel.HomeActivity;
 import travel.avg.travel.R;
 import travel.avg.travel.RoutActivity;
+import travel.avg.travel.Tours;
 import travel.avg.travel.api.ApiService;
 import travel.avg.travel.entities.Guid;
 import travel.avg.travel.entities.Tour;
@@ -137,11 +138,10 @@ public class MyAdapter1 extends ArrayAdapter<Tour> {
                 break;
         }
 
-        final int finalA = a;
         bron.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ApiService(context).Bron(item.getId(), HomeActivity.id)
+                new ApiService(context).Bron(item.getId(), Tours.getIdUser())
                         .enqueue(new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -149,6 +149,7 @@ public class MyAdapter1 extends ArrayAdapter<Tour> {
                                     Toast.makeText(context, "Вы забронировали тур", Toast.LENGTH_LONG).show();
                                 }
                                 else {
+                                    Toast.makeText(context, response.code(), Toast.LENGTH_LONG).show();
                                     Toast.makeText(context, "Вы не можете забронировать тур", Toast.LENGTH_LONG).show();
                                 }
                             }

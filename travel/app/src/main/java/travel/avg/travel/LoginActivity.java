@@ -15,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import travel.avg.travel.api.ApiService;
 import travel.avg.travel.api.Helper;
 import travel.avg.travel.entities.Token;
+import travel.avg.travel.entities.Tour;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -56,13 +57,12 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     status = true;
                     Token values = response.body();
-                    String id = values.getUsername();
+                    Tours.setIdUser(values.getUsername());
                     Helper asd = new Helper(LoginActivity.this);
                     asd.setToken(values.getAccess_token());
 
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.putExtra("email_user", email);
-                    intent.putExtra("id_user", id);
                     startActivity(intent);
                     finish();
                 } else {

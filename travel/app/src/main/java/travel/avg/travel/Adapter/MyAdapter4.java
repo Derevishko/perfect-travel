@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import travel.avg.travel.R;
 import travel.avg.travel.RoutActivity;
+import travel.avg.travel.Tours;
 import travel.avg.travel.api.ApiService;
 import travel.avg.travel.entities.Guid;
 import travel.avg.travel.entities.Tour;
@@ -41,7 +43,7 @@ public class MyAdapter4 extends ArrayAdapter<Tour> {
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
 
-        if(view == null){
+        if (view == null) {
             LayoutInflater inflater =
                     (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.item1_2, parent, false);
@@ -74,11 +76,10 @@ public class MyAdapter4 extends ArrayAdapter<Tour> {
                 new ApiService(context).getGuid(item.getId()).enqueue(new Callback<Guid>() {
                     @Override
                     public void onResponse(Call<Guid> call, Response<Guid> response) {
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             Guid guid = response.body();
                             phone[0] = guid.getName();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(context, "Error!" + response.code(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -113,17 +114,15 @@ public class MyAdapter4 extends ArrayAdapter<Tour> {
         });
 
         int a = 0;
-        if(item.getStatus().equals("Past")){
+        if (item.getStatus().equals("Past")) {
             a = -1;
-        }
-        else if(item.getStatus().equals("Present")){
-            a=0;
-        }
-        else if(item.getStatus().equals("Future"))
-            a=1;
+        } else if (item.getStatus().equals("Present")) {
+            a = 0;
+        } else if (item.getStatus().equals("Future"))
+            a = 1;
 
-        switch (a){
-            case -1 :
+        switch (a) {
+            case -1:
                 imageView.setImageResource(R.drawable.ic_time);
                 break;
             case 0:
@@ -134,7 +133,8 @@ public class MyAdapter4 extends ArrayAdapter<Tour> {
                 break;
         }
         return view;
-
+    }
+}
 //        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)(view.findViewById(R.id.linear)).getLayoutParams();
 //        params.weight = 0f;
 //        params.height = 0;
@@ -142,5 +142,3 @@ public class MyAdapter4 extends ArrayAdapter<Tour> {
         //view.setLayoutParams(param);
 //        (view.findViewById(R.id.linear)).setVisibility(View.GONE);
 //        (view.findViewById(R.id.linear)).setLayoutParams(null);
-    }
-}
