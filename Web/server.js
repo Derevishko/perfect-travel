@@ -142,7 +142,7 @@ app.get('/api/tour',function(req,res) {
       collection.find().toArray(function(err,result) {
         if (!err && result) {
           let data = result
-          .map(x=>({name: x.name, price: x.price, status: x.status, description: x.description}));
+          .map(x=>({name: x.name, price: x.price, status: x.status, description: x.description, from:x.from}));
           client.close();
           res.setHeader('200','ok',{'Content-type' : 'aplication/json; charset = utf8'})
           res.json(data)
@@ -490,5 +490,8 @@ app.post( '/api/addguid',function(req, res) {
  })
 });
 
+app.post('/api/saveimg',function(req,res){
+
+})
 // app.listen(process.    env.PORT);
 app.listen(3000);
