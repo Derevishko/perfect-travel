@@ -3,15 +3,9 @@ package travel.avg.travel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,11 +14,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import travel.avg.travel.api.ApiService;
 import travel.avg.travel.api.Helper;
-import travel.avg.travel.api.ServerApi;
-import travel.avg.travel.entities.ClassTest;
 import travel.avg.travel.entities.Token;
 import travel.avg.travel.entities.Tour;
-import travel.avg.travel.entities.User;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -66,16 +57,12 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     status = true;
                     Token values = response.body();
-                    String id = values.getUsername();
-                    String token = values.getAccess_token();
+                    Tours.setIdUser(values.getUsername());
                     Helper asd = new Helper(LoginActivity.this);
                     asd.setToken(values.getAccess_token());
 
-                    Toast.makeText(getApplication(), "ID: " + id + ", TOKEN: " + asd.getToken(), Toast.LENGTH_LONG).show();
-
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.putExtra("email_user", email);
-                    intent.putExtra("id_user", id);
                     startActivity(intent);
                     finish();
                 } else {

@@ -8,9 +8,8 @@ public class City {
     private String name;
     private String description;
     private String[] photos;
-    private float[] coordinates;
 
-    public City(String id, String tId, String cId, String status, String name, String description, String[] photos, float[] coordinates) {
+    public City(String id, String tId, String cId, String status, String name, String description, String[] photos) {
         this.id = id;
         this.tId = tId;
         this.cId = cId;
@@ -18,7 +17,6 @@ public class City {
         this.name = name;
         this.description = description;
         this.photos = photos;
-        this.coordinates = coordinates;
     }
 
     public String getId() {
@@ -47,9 +45,5 @@ public class City {
 
     public String[] getPhotos() {
         return photos;
-    }
-
-    public float[] getCoordinates() {
-        return coordinates;
     }
 }

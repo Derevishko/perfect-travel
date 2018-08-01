@@ -31,7 +31,7 @@ public class RoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.routs);
 
-        Clas.setQwe(getIntent().getStringExtra("id_Tour"));
+        Tours.setId_Tour(getIntent().getStringExtra("id_Tour"));
         //Toast.makeText(getApplication(), id_tour, Toast.LENGTH_SHORT).show();
 
         retrofit= new Retrofit.Builder()
@@ -40,7 +40,7 @@ public class RoutActivity extends AppCompatActivity {
                 .build();
 
         ServerApi serverApi = retrofit.create(ServerApi.class);
-        Call<List<City>> call = serverApi.getCities(Clas.getQwe());
+        Call<List<City>> call = serverApi.getCities(Tours.getId_Tour());
         call.enqueue(new Callback<List<City>>() {
             @Override
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,13 +20,12 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import travel.avg.travel.HomeActivity;
 import travel.avg.travel.R;
 import travel.avg.travel.RoutActivity;
+import travel.avg.travel.Tours;
 import travel.avg.travel.api.ApiService;
 import travel.avg.travel.entities.Guid;
 import travel.avg.travel.entities.Tour;
-import travel.avg.travel.entities.User;
 
 public class MyAdapter1 extends ArrayAdapter<Tour> {
 
@@ -54,7 +52,7 @@ public class MyAdapter1 extends ArrayAdapter<Tour> {
         final TextView goneVisible = view.findViewById(R.id.goneVisible);
         final TextView header = view.findViewById(R.id.header);
         final TextView description = view.findViewById(R.id.textInfo);
-        final ImageButton imageView = view.findViewById(R.id.tourStatus);
+//        final ImageButton imageView = view.findViewById(R.id.tourStatus);
         final TextView name_guid = view.findViewById(R.id.name_guid);
         final TextView place = view.findViewById(R.id.place);
         final TextView price = view.findViewById(R.id.price);
@@ -117,33 +115,10 @@ public class MyAdapter1 extends ArrayAdapter<Tour> {
             }
         });
 
-        int a = 0;
-        if(item.getStatus().equals("Past")){
-            a = -1;
-        }
-        else if(item.getStatus().equals("Present")){
-            a=0;
-        }
-        else if(item.getStatus().equals("Future"))
-            a=1;
-
-        switch (a){
-            case -1 :
-                imageView.setImageResource(R.drawable.ic_time);
-                break;
-            case 0:
-                imageView.setImageResource(R.drawable.ic_present);
-                break;
-            case 1:
-                imageView.setImageResource(R.drawable.ic_past);
-                break;
-        }
-
-        final int finalA = a;
         bron.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ApiService(context).Bron(item.getId(), HomeActivity.id)
+                new ApiService(context).Bron(item.getId(), Tours.getIdUser())
                         .enqueue(new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -151,6 +126,7 @@ public class MyAdapter1 extends ArrayAdapter<Tour> {
                                     Toast.makeText(context, "Вы забронировали тур", Toast.LENGTH_LONG).show();
                                 }
                                 else {
+//                                    Toast.makeText(context, response.code(), Toast.LENGTH_LONG).show();
                                     Toast.makeText(context, "Вы не можете забронировать тур", Toast.LENGTH_LONG).show();
                                 }
                             }

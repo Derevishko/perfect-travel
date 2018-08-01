@@ -13,12 +13,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.TileOverlay;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,7 +41,7 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         id = getIntent().getStringExtra("id_user");
-        GetUser(id);
+        GetUser(Tours.getIdUser());
 
     }
 
@@ -65,9 +59,6 @@ public class HomeActivity extends AppCompatActivity
                             ((TextView)findViewById(R.id.UserName)).setText("Добро пожаловать " + name);
 
                             Tours.setList(item.getTours());
-//                            for (String qwerty: Tours.getList()) {
-//                                Toast.makeText(getApplication(), qwerty, Toast.LENGTH_LONG).show();
-//                            }
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Error!" + response.code(), Toast.LENGTH_SHORT).show();
@@ -76,7 +67,7 @@ public class HomeActivity extends AppCompatActivity
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Error: " + t.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Error 1: " + t.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
