@@ -6,7 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class Helper {
-    public static String HOST = "http://fvmapi.westeurope.cloudapp.azure.com/api/";
+    public static String HOST = "http://fvmapi.westeurope.cloudapp.azure.com/";
 
     SharedPreferences pref;
     static SharedPreferences.Editor editor;

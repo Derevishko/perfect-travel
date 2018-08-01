@@ -1,56 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
+    android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:orientation="horizontal"
-    android:color="@color/fon"
-    android:id="@+id/city">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:id="@+id/photoCity"/>
+    android:color="@color/fon">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2"
+        android:id="@+id/city"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:id="@+id/vname" />
+            android:id="@+id/vname"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:id="@+id/vdescription"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:textAlignment="center"
-            android:hint="дата отправления"
-            android:id="@+id/vdate"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:textAlignment="center"
-            android:hint="время прибытия"
-            android:id="@+id/varrival"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:textAlignment="center"
-            android:hint="время отправления"
-            android:id="@+id/vdeparture"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/vdescription"
+            android:minLines="1"
+            android:maxLines="1000"/>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

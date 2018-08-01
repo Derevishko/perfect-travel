@@ -2,11 +2,14 @@ package travel.avg.travel;
 
 import java.util.List;
 
+import travel.avg.travel.entities.Tour;
+
 public class Tours{
     public static String idUser;
     public static List<String> list;
     public static String id_Tour;
-    public static List<Double[]> coord;
+    public static List<String> coord;
+    public static List<String> placeName;
 
     public static String getIdUser() {
         return idUser;
@@ -16,16 +19,11 @@ public class Tours{
         Tours.idUser = idUser;
     }
 
-    public static void setCoord(List<Double[]> coord) {
-        Tours.coord = coord;
-    }
-
     public static List<String> getList() {
         return list;
     }
 
     public static void setList(List<String> list) {
-        Tours.list = null;
         Tours.list = list;
     }
 
@@ -37,11 +35,19 @@ public class Tours{
         Tours.id_Tour = id_Tour;
     }
 
-    public static List<Double[]> getCoord() {
+    public static List<String> getCoord() {
         return coord;
     }
 
-    public static void setCoord(Double[] coord) {
+    public static void setCoord(String coord) {
         Tours.coord.add(coord);
+    }
+
+    public static void setPlaceName(String placeName) {
+        Tours.placeName.add(placeName);
+    }
+
+    public static List<String> getPlaceName() {
+        return placeName;
     }
 }

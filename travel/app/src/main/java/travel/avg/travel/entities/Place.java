@@ -1,52 +1,69 @@
 package travel.avg.travel.entities;
 
+import java.util.List;
+
 public class Place {
-    private int id_city;
-    private String place_name;
-    private String place_description;
-    private int place_photo;
-    private Double[] place_coords;
-    private String time;
-    private String place_status;
+    private String id;
+    private String fId;
+    private String pId;
+    private String status;
+    private String name;
+    private String cId;
+    private String description;
+    private String coordinates;
+    private String date;
+    private String photo;
 
-    public Place() {
+    public Place(String id, String fId, String pId, String status, String name, String cId, String description, String coordinates, String date, String photo) {
+        this.id = id;
+        this.fId = fId;
+        this.pId = pId;
+        this.status = status;
+        this.name = name;
+        this.cId = cId;
+        this.description = description;
+        this.coordinates = coordinates;
+        this.date = date;
+        this.photo = photo;
     }
 
-    public Place(int id_city, String place_name, String place_description, int place_photo, Double[] place_coords, String time, String place_status) {
-        this.id_city = id_city;
-        this.place_name = place_name;
-        this.place_description = place_description;
-        this.place_photo = place_photo;
-        this.place_coords = place_coords;
-        this.time = time;
-        this.place_status = place_status;
+    public String getId() {
+        return id;
     }
 
-    public int getId_city() {
-        return id_city;
+    public String getfId() {
+        return fId;
     }
 
-    public String getPlace_name() {
-        return place_name;
+    public String getpId() {
+        return pId;
     }
 
-    public String getPlace_description() {
-        return place_description;
+    public String getStatus() {
+        return status;
     }
 
-    public int getPlace_photo() {
-        return place_photo;
+    public String getName() {
+        return name;
     }
 
-    public Double[] getPlace_coords() {
-        return place_coords;
+    public String getcId() {
+        return cId;
     }
 
-    public String getTime() {
-        return time;
+    public String getDescription() {
+        return description;
     }
 
-    public String getPlace_status() {
-        return place_status;
+    public String getCoordinates() {
+        return coordinates;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getPhoto() {
+        return photo;
     }
 }

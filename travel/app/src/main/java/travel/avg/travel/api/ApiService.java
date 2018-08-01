@@ -11,8 +11,11 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+import retrofit2.http.Headers;
 import travel.avg.travel.entities.Bronirovanie;
 import travel.avg.travel.entities.Guid;
+import travel.avg.travel.entities.Photo;
+import travel.avg.travel.entities.Place;
 import travel.avg.travel.entities.Token;
 import travel.avg.travel.entities.User;
 import travel.avg.travel.entities.UserRegister;
@@ -54,5 +57,9 @@ public class ApiService {
 
     public Call<Void> SignUp(String name, String email, String password){
         return serverApi.singUp(new UserRegister(name, email, password));
+    }
+
+    public Call<List<Place>> Place(String id_tour, String id_city){
+        return serverApi.getPlaces(id_tour, id_city);
     }
 }

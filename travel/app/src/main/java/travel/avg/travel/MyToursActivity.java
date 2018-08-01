@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
@@ -67,17 +68,18 @@ public class MyToursActivity extends AppCompatActivity {
                     values = response.body();
                     ArrayList<Tour> arrayList = new ArrayList();
                     arrayList.addAll(values);
-                    for(int i = 0; i < Tours.getList().size(); i++){
-                        for(int j = 0; j < arrayList.size(); j++){
-                            if(Tours.getList().get(i).equals(arrayList.get(j).getId())){
-                                ArrayList<Tour> array = new ArrayList();
-                                array.add(arrayList.get(j));
-                                MyAdapter4 myAdapter4 = new MyAdapter4(MyToursActivity.this, array);
-                                ListView lvMain = findViewById(R.id.lvMain);
-                                lvMain.setAdapter(myAdapter4);
+                    ArrayList<Tour> array = new ArrayList();
+                    for (Tour t: arrayList) {
+                        for(int j = 0; j < Tours.getList().size(); j++) {
+                            if ((t.getId()).equals(Tours.getList().get(j)) == true)
+                            {
+                                array.add(t);
                             }
                         }
                     }
+                    MyAdapter4 myAdapter4 = new MyAdapter4(MyToursActivity.this, array);
+                    ListView lvMain = findViewById(R.id.lvMain);
+                    lvMain.setAdapter(myAdapter4);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "faild code : " + response.code(), Toast.LENGTH_SHORT).show();

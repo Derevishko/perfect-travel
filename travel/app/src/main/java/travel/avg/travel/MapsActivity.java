@@ -23,6 +23,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import travel.avg.travel.Adapter.MyAdapter3;
+import travel.avg.travel.api.ApiService;
 import travel.avg.travel.api.Helper;
 import travel.avg.travel.api.ServerApi;
 import travel.avg.travel.entities.Place;
@@ -32,7 +33,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     List<Place> values = new ArrayList<>();
-    Retrofit retrofit;
 
     String NameCity;
     String CityId;
@@ -52,32 +52,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         CityId = getIntent().getStringExtra("CityId");
         NameCity =getIntent().getStringExtra("CityName");
 
-        retrofit= new Retrofit.Builder()
-                .baseUrl(Helper.HOST)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        //Tours.coord = null;
 
-        Tours.coord = null;
-
-        ServerApi serverApi = retrofit.create(ServerApi.class);
-        Call<List<Place>> call = serverApi.getPlaces(Tours.getId_Tour(), CityId);
-        call.enqueue(new Callback<List<Place>>() {
+        new ApiService(this).Place(Tours.getId_Tour(), CityId)
+        .enqueue(new Callback<List<Place>>() {
             @Override
             public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
                 if(response.isSuccessful()){
-                    values = response.body();
-                    ArrayList<Place> arrayList = new ArrayList<>();
-                    arrayList.addAll(values);
+                    if(response.code()==200){
+                        values = response.body();
+                        ArrayList<Place> arrayList = new ArrayList();
+                        arrayList.addAll(values);
 
-                    for (Place place: values) {
-                     Tours.setCoord(place.getPlace_coords());
+                        Tours.coord = new ArrayList<>();
+                        Tours.placeName = new ArrayList<>();
+                        for (Place place: values) {
+                            Tours.setCoord(place.getCoordinates());
+                            Tours.setPlaceName(place.getName());
+                        }
+
+                        MyAdapter3 myAdapter3 = new MyAdapter3(MapsActivity.this, arrayList);
+                        ListView lvMain = findViewById(R.id.maps);
+                        lvMain.setAdapter(myAdapter3);
+                        setUpMap();
                     }
-                    MyAdapter3 myAdapter3 = new MyAdapter3(MapsActivity.this, arrayList);
-                    ListView lvMain = findViewById(R.id.map);
-                    lvMain.setAdapter(myAdapter3);
+                    else {
+                        Toast.makeText(getApplicationContext(), response.code(), Toast.LENGTH_LONG).show();
+                    }
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "faild code : " + response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "faild code1: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -107,18 +111,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //LatLng sydney = new LatLng(-34, 151);
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        Tours.getCoord();
         //setUpMap();
     }
 
-//    private void setUpMap() {
-//        List<Double[]> item = null;
-//        Double item2[] = {10.10, 11.11};
-//        item.add(item2);
-//        Toast.makeText(getApplicationContext(), item2.length, Toast.LENGTH_LONG).show();
-//
-//        for (Double[] qwert : item) {
-//            mMap.addMarker(new MarkerOptions().position(new LatLng(0, 1)).title("Marker"));
-//        }
-//    }
+    private void setUpMap() {
+        for (String item: Tours.getCoord()) {
+            Double v0 = Double.parseDouble(item.substring(0, item.indexOf(":")));
+            Double v1 = Double.parseDouble(item.substring(item.indexOf(":") + 1, item.length()));
+            for (String name : Tours.getPlaceName()) {
+                mMap.addMarker(new MarkerOptions().position(new LatLng(v0, v1)).title(Tours.getPlaceName().get(Tours.getCoord().indexOf(item))));
+            }
+        }
+    }
 }
