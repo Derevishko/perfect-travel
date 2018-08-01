@@ -3,21 +3,15 @@
 	<div class="bd-top">
 		<div class="wrapper container-lg">
 			<div class="text-center">
-				<h2 class="gap">Данные клиента</h2>
-				<input type="text" class="form width-sm gap" placeholder="Фамилия">
-				<input type="text" class="form width-sm gap" placeholder="Имя">
-				<input type="text" class="form width-sm gap" placeholder="Отчество">
-				<h2 class="gap">Адрес электронной почты</h2>
-				<input type="text" class="form width-sm gap" placeholder="Email">
-				<h2 class="gap">Стоимость тура</h2>
-				<input type="text" class="form width-sm gap">
+				<h2 class="gap">Клиент</h2>
+				<select id="user" class="width-sm gap form">
+					<option value="" selected disabled hidden>Не выбрано</option>
+				</select>
 				<h2 class="gap">Тур</h2>
-				<select id="selectTour" class="width-sm gap form">
+				<select id="user_tour" class="width-sm gap form">
 					<option value="" selected disabled hidden>Не выбрано</option>
 				</select>
 				<br>
-				<input type="checkbox" class="gap" id="isGuide">
-				<span>Является гидом</span>
 				<button id="addClient" class="btn gap">Готово</button>
 			</div>
 	</div>

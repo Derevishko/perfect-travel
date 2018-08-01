@@ -22,7 +22,7 @@ var routes = {
 	,"#tour" : {
 		path : "JS/Routes/Tour.json"
 		,event : function(){
-			Tour.Init();
+			
 		}
 	}
 }

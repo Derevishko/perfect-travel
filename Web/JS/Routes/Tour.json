@@ -2,7 +2,22 @@
 	<h1 class="slogan text-left">Тур</h1>
 	<div class="bd-top">
 		<div class="wrapper row">
-			
+			<div class="left">
+				<div class="col">
+						
+				</div>
+			</div>
+			<div class="right">
+				<div class="rrr">
+				<div class="row status-bar">			
+	
+				</div>
+				<div class="row container-sm gap">
+					<div class="col cityInfo"></div>
+					<div class="col users"></div>
+				</div>	
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

@@ -22,7 +22,6 @@ var Home = {
 			var toursDiv = document.getElementsByClassName('rest-tours')[0];
 
 			Home.Methods.getDataFromServer().then(function(data) {
-				console.log(data.Cities);
 				var citiesLimit;
 				for(var city in data.Cities){			
 					var li = document.createElement('li');
@@ -55,6 +54,14 @@ var Home = {
 										</div>`
 						toursDiv.appendChild(tourdiv);
 				}
+				var next = document.getElementsByClassName('next')
+					for(var btn of next){
+						btn.addEventListener('click',function(e){
+							var id = e.target.getAttribute('id')
+							Tour.Init(id);
+						})
+					}
+					
 			}, err => console.error(err))
 		}
 	}
