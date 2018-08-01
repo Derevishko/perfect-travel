@@ -12,7 +12,7 @@ const error = function (res, client) {
 }
 const events = require('events')
 const myEmit = new events.EventEmitter();
-	
+
 myEmit.on('tourCheked', function(res,client,result){
   result ? myEmit.emit('tourChekComplite',res,client,result) : null
 });
@@ -267,13 +267,122 @@ app.get('/api/tour/:name', function(req,res){
     })
   })
 })
-// сохраниние тура в базу данных --- не готово
-app.post( '/api/createtour', function(req, res) {
-  //save tour on database
-  res.setHeader('200','ok',{'Content-type' : 'text/plain; charset = utf8'});
-  res.head()
+// сохраниние тура в базу данных --- готово
+const check = function(name,from,to){
+  let flag = true;
+  name.match(/^\w{2,60}$/)[0] ? null : flag = false;
+  from.match(/^20\d{2}\-\d{2}-\d{2}T\d{2}\:\d{2}\:\d{2}\.\d{3}Z$/)[0] ? null : flag = false;
+  to.match(/^20\d{2}\-\d{2}-\d{2}T\d{2}\:\d{2}\:\d{2}\.\d{3}Z$/)[0] ? null : flag = false;
+  if(flag) {
+    new Date(from) < new Date(to) ? null : flag = false;
+  }
+  return flag;
+}
+app.post( '/api/savetour', function(req, res) {
+  let flag = true;
+  check(req.body.name,req.body.from,req.body.to)
+  req.body.guider.match(/^\+?\s*(375|80)\s*\(?(25|29|33|44)\)?\s*\-*\d\s*\-*\d\s*\-*\d\s*\-*\d\s*\-*\d\s*\-*\d\s*\-*\d$/) ? null : flag = false;
+  req.body.allSeats.match(/^\d{1,2}$/) ? null : flag = false;
+  req.body.price.match(/^\d{1,}$/)
+  if(!flag){
+    res.sendStatus(400)
+  }
+  req.body.cities.forEach(function(city) {
+    check(city.name,city.from,city.to);
+    if(!flag){
+      res.sendStatus(400)
+    }
+    city.places.forEach(function(place) {
+      check(place.name,place.from,place.to)
+      if(!flag){
+        res.sendStatus(400)
+      }
+    })
+  })
+  myEmit.emit('validTour',req.body,res)
 });
+myEmit.on('validTour',function(tour,res){
+  mongoClient.connect(url,function(err,client) {
+    if(err) {
+      error(res,client);
+    }
+    client.db('TourAgencyDB').collection('Tours')
+    .findOne({name:tour.name},function(err,result){
+      if(err){
+        error(res,client)
+      }
+      if(result == {}){
+        myEmit.emit('createTour',tour,res,client)
+      } else {
+        error(res,result)
+      }
+    })
+  })
+});
+myEmit.on('createTour',function(tour,res,client){
+  let dataTour = {name:tour.name,freeSeats:tour.allSeats,allSeats:tour.allSeats,
+  price:tour.price,from:tour.from,description:tour.description,to:tour.to,created:(new Date()).toISOString(),status:'Future'}
+  client.db('TourAgencyDB').collection('Tours')
+  .insertOne(dataTour,function(err,result){
+    if(err) {
+      error(res,client)
+    }
+    myEmit.emit('createTourCity',tour.cities,result._id,res,client)
+  })
+});
+myEmit.on('createTourCity',function(cities,id,res,client) {
+  let c = cities.length;
+  cities.forEach(function(city) {
 
+    client.db('TourAgencyDB').collection('Cities').findOne({name:city.name},function(err,result){
+      if(err || !result.name) {
+        error(res,client)
+      }
+      let dataCity = {tour_id:objectId(id),city_id:objectId(result._id),from:city.from,to:city.to,status:'Future'}
+      myEmit.emit('addTourCity',dataCity,city.places,c,res,client)
+    })
+  })
+})
+myEmit.on('addTourCity',function(city,places,c,res,client){
+  client.db('TourAgencyDB').collection('Tour_Cities')
+  .insertOne(city,function(err,result){
+    if(err){
+      error(res,client)
+    }
+    let p = places.length;
+    if(!p){c--}
+    let city_id = result._id
+    places.forEach(function(place){
+      client.db('TourAgencyDB').collection('Places')
+      .findOne({name:place.name},function(err,result){
+        if(err){
+          error(res,client)
+        }
+        myEmit.emit('addTourPlace',place,result._id,city_id,c,p,res,client);
+      })
+    })
+  })
+});
+myEmit.on('addTourPlace',function(place,id,city_id,c,p,res,client){
+  let dataPlace = {f_id:objectId(city_id),from:place.from,to:place.to,status:'Future',place_id:objectId(id)};
+  client.db('TourAgencyDB').collection('Tour_Places')
+  .insertOne(dataPlace,function(err,result){
+    if(err){
+      error(res,client)
+    }
+    p--;
+    if(!p){
+      c--;
+      if(!c){
+        myEmit.emit('createdTour',res,client)
+      }
+    }
+  })
+});
+myEmit.on('createTour',function(res,client){
+  res.sendStatus(200);
+  client.close();
+})
 // пользователи --- готово
 app.get( '/api/users', function(req, res) {
   mongoClient.connect(url,function(err, client) {
@@ -284,7 +393,6 @@ app.get( '/api/users', function(req, res) {
       if (err || !result) {
         error(res,client)
       }
-
       res.json(result.map(x=>({name: x.name, email: x.email})));
       client.close()
     })
@@ -334,13 +442,17 @@ app.post('/api/adduser',function(req,res){
       if(err || !result){
         error(res,client)
       }
+      console.log(result)
       let user_id = result._id;
-      client.db('TourAgencyDB').collection('Tours').findOne({email:req.body.name},function(err,result){
+      client.db('TourAgencyDB').collection('Tours').findOne({name:req.body.name},function(err,result){
         if(err || !result){
           error(res,client)
         }
+        console.log(result)
+          // res.send(200);
+          // client.close();
         let tour_id = result._id;
-        client.db('TourAgencyDB').collection('Tours').insertOne({tour_id:tour_id, user_id: user_id},function(err,result){
+        client.db('TourAgencyDB').collection('Tour_Users').insertOne({tour_id:tour_id, user_id: user_id},function(err,result){
           if(err || !result){
             error(res,client)
           }
@@ -371,7 +483,8 @@ app.post( '/api/addguid',function(req, res) {
        if(err || !result) {
          error(res,client)
        }
-       res.sendStatus(200)
+       res.sendStatus(200);
+       client.close();
      })
    })
  })

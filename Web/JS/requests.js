@@ -14,19 +14,22 @@ var Requests = {
 		return promise;
 	}
 	,send(what,to){
-		var promise = new Promise(function(resolve,reject){
+		// var promise = new Promise(function(resolve,reject){
 			var xhr = new XMLHttpRequest;
 			var json = JSON.stringify(what);
 				xhr.open("POST",to,true);
 				xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 				xhr.onload = function(){
-					resolve(this.responseText);
+					// resolve(this.responseText);
+					if(this.responseText == 200) {
+						alert('OK');
+					}
 				}
 				xhr.onerror = function(){
 					alert("Не удалось получить данные с сервера.")
 				}
 				xhr.send(json);
-		})
-		return promise;
+		// })
+		// return promise;
 	}
 }
